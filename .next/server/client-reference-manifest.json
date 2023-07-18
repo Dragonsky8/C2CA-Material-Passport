@@ -40,9 +40,89 @@
         "async": false
       }
     },
+    "(app-client)/./node_modules/@mui/material/node/AppBar/index.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/@mui/material/node/AppBar/index.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
+    "(app-client)/./node_modules/@mui/material/node/index.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/@mui/material/node/index.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
+    "(app-client)/./node_modules/@mui/material/node/Box/index.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/@mui/material/node/Box/index.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
+    "(app-client)/./node_modules/@mui/material/node/Toolbar/index.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/@mui/material/node/Toolbar/index.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
+    "(app-client)/./node_modules/@mui/material/node/Typography/index.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/@mui/material/node/Typography/index.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
+    "(app-client)/./node_modules/@mui/material/node/Button/index.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/@mui/material/node/Button/index.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
+    "(app-client)/./node_modules/@mui/material/node/IconButton/index.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/@mui/material/node/IconButton/index.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
+    "(app-client)/./node_modules/@mui/material/node/Container/index.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/@mui/material/node/Container/index.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
+    "(app-client)/./node_modules/@mui/icons-material/Menu.js": {
+      "*": {
+        "id": "(sc_client)/./node_modules/@mui/icons-material/Menu.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
     "(app-client)/./node_modules/next/dist/client/image-component.js": {
       "*": {
         "id": "(sc_client)/./node_modules/next/dist/client/image-component.js",
+        "name": "*",
+        "chunks": [],
+        "async": false
+      }
+    },
+    "(app-client)/./src/component/searchBox/searchBox.tsx": {
+      "*": {
+        "id": "(sc_client)/./src/component/searchBox/searchBox.tsx",
         "name": "*",
         "chunks": [],
         "async": false
@@ -131,6 +211,94 @@
       ],
       "async": false
     },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/next/font/google/target.css?{\"path\":\"src/app/layout.tsx\",\"import\":\"Inter\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"inter\"}": {
+      "id": "(app-client)/./node_modules/next/font/google/target.css?{\"path\":\"src/app/layout.tsx\",\"import\":\"Inter\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"inter\"}",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/src/app/globals.css": {
+      "id": "(app-client)/./src/app/globals.css",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/@mui/material/node/AppBar/index.js": {
+      "id": "(app-client)/./node_modules/@mui/material/node/AppBar/index.js",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/@mui/material/node/index.js": {
+      "id": "(app-client)/./node_modules/@mui/material/node/index.js",
+      "name": "*",
+      "chunks": [
+        "app/overview/page:static/chunks/app/overview/page.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/@mui/material/node/Box/index.js": {
+      "id": "(app-client)/./node_modules/@mui/material/node/Box/index.js",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/@mui/material/node/Toolbar/index.js": {
+      "id": "(app-client)/./node_modules/@mui/material/node/Toolbar/index.js",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/@mui/material/node/Typography/index.js": {
+      "id": "(app-client)/./node_modules/@mui/material/node/Typography/index.js",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/@mui/material/node/Button/index.js": {
+      "id": "(app-client)/./node_modules/@mui/material/node/Button/index.js",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/@mui/material/node/IconButton/index.js": {
+      "id": "(app-client)/./node_modules/@mui/material/node/IconButton/index.js",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/@mui/material/node/Container/index.js": {
+      "id": "(app-client)/./node_modules/@mui/material/node/Container/index.js",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/@mui/icons-material/Menu.js": {
+      "id": "(app-client)/./node_modules/@mui/icons-material/Menu.js",
+      "name": "*",
+      "chunks": [
+        "app/layout:static/chunks/app/layout.js"
+      ],
+      "async": false
+    },
     "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/next/dist/client/image-component.js": {
       "id": "(app-client)/./node_modules/next/dist/client/image-component.js",
       "name": "*",
@@ -151,33 +319,28 @@
       "id": "(app-client)/./src/app/page.module.css",
       "name": "*",
       "chunks": [
-        "app/page:static/chunks/app/page.js"
+        "app/overview/page:static/chunks/app/overview/page.js"
       ],
       "async": false
     },
-    "/Users/william/Documents/VSCode/C2CA-Material-Passport/node_modules/next/font/google/target.css?{\"path\":\"src/app/layout.tsx\",\"import\":\"Inter\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"inter\"}": {
-      "id": "(app-client)/./node_modules/next/font/google/target.css?{\"path\":\"src/app/layout.tsx\",\"import\":\"Inter\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"inter\"}",
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/src/component/searchBox/searchBox.tsx": {
+      "id": "(app-client)/./src/component/searchBox/searchBox.tsx",
       "name": "*",
       "chunks": [
-        "app/layout:static/chunks/app/layout.js"
-      ],
-      "async": false
-    },
-    "/Users/william/Documents/VSCode/C2CA-Material-Passport/src/app/globals.css": {
-      "id": "(app-client)/./src/app/globals.css",
-      "name": "*",
-      "chunks": [
-        "app/layout:static/chunks/app/layout.js"
+        "app/overview/page:static/chunks/app/overview/page.js"
       ],
       "async": false
     }
   },
   "entryCSSFiles": {
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/src/app/layout": [
+      "static/css/app/layout.css"
+    ],
     "/Users/william/Documents/VSCode/C2CA-Material-Passport/src/app/page": [
       "static/css/app/page.css"
     ],
-    "/Users/william/Documents/VSCode/C2CA-Material-Passport/src/app/layout": [
-      "static/css/app/layout.css"
+    "/Users/william/Documents/VSCode/C2CA-Material-Passport/src/app/overview/page": [
+      "static/css/app/overview/page.css"
     ]
   }
 }

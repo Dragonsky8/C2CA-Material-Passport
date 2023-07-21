@@ -13,8 +13,19 @@ export default function SearchBox() {
     }
     const [searchData, setSearchData] = useState('');
 
-    const handleChange = (event: React.MouseEvent) => {
-        alert(searchData);
+    const handleChange = async (event: React.MouseEvent) => {
+        // window.location.href = `/api/entity/${searchData}`;
+        // const res = await fetch(`/api/entity/${searchData}`, {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({id: searchData})
+        // })
+        // if (!res.ok) {
+        //     throw new Error ("hellluup")
+        // };
+        window.location.href = `/overview/${searchData}`
     }
 
   return (

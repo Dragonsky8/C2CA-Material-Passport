@@ -11,7 +11,9 @@ datasource db {
 }
 
 model Material {
-  id Int  @id @default(autoincrement())
+  id               Int      @id @default(autoincrement())
   dateOfProduction DateTime
-  name String 
+  name             String
+  producer         String
+  mixture          String
 }

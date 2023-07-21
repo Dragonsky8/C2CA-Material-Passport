@@ -12,7 +12,6 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import theme from '../../styles/theme';
 
 function Copyright(props: any) {
   return (
@@ -28,7 +27,7 @@ function Copyright(props: any) {
 }
 
 // TODO remove, this demo shouldn't need to reset the theme.
-// const defaultTheme = createTheme();
+const defaultTheme = createTheme();
 
 export default function SignInSide() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,6 +40,7 @@ export default function SignInSide() {
   };
 
   return (
+    <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -123,5 +123,6 @@ export default function SignInSide() {
           </Box>
         </Grid>
       </Grid>
+    </ThemeProvider>
   );
 }

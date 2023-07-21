@@ -15,7 +15,7 @@ export default function Overview() {
         <Box>
           <SearchBox />
         </Box>
-        <Box> Hello</Box>
+        <Box> Hello. Here you can find an overview on the material properties!</Box>
       </>
     </CardBody>
   );

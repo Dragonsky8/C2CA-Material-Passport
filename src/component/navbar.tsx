@@ -25,12 +25,12 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            News
+            C2CA Material Passport
           </Typography>
           <Button color="inherit" href="/add"> Add</Button>
           <Button color="inherit" href="/overview"> Overview</Button>
           <Button color="inherit" href="/"> Home</Button>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" href="logintest">Login</Button>
         </Toolbar>
       </AppBar>
     </Box>

@@ -13,18 +13,12 @@ export default function SearchBox() {
     }
     const [searchData, setSearchData] = useState('');
 
-    const handleChange = async (event: React.MouseEvent) => {
-        // window.location.href = `/api/entity/${searchData}`;
-        // const res = await fetch(`/api/entity/${searchData}`, {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({id: searchData})
-        // })
-        // if (!res.ok) {
-        //     throw new Error ("hellluup")
-        // };
+    const handleChange = async (event: React.MouseEvent | React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            window.location.href = `/overview/${searchData}`
+        }
+    }
+    const handleClick = async () => {
         window.location.href = `/overview/${searchData}`
     }
 
@@ -34,8 +28,8 @@ export default function SearchBox() {
         flexDirection: 'column',
         gap: '10px'
     }}>
-      <TextField id="outlined-basic" label="RFID code" variant="outlined" onChange={e=> {setSearchData(e.currentTarget.value)}}/>
-      <Button variant="contained" onClick={handleChange}> Search!</Button>
+      <TextField type="number" id="outlined-basic" label="RFID code" variant="outlined" onKeyDown={handleChange} onChange={e=> {setSearchData(e.currentTarget.value)}}/>
+      <Button variant="contained" onClick={handleClick}> Search!</Button>
     </Box>
   );
 }

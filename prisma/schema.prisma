@@ -17,3 +17,10 @@ model Material {
   producer         String
   mixture          String
 }
+
+model Users {
+  id       Int    @id @default(autoincrement())
+  userName String
+  role     String
+  password String
+}

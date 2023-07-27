@@ -13,7 +13,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import useUser from "../../../lib/useUser"
+import {signIn} from 'next-auth/react'
 
 function Copyright(props: any) {
   return (
@@ -36,13 +36,14 @@ export default function SignInSide() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    
-    window.location.href = `/overview`;
+    signIn("credentials", {
+      username: data.get('email'),
+      password: data.get('password'),
+      redirect: true,
+      callbackUrl: "/overview"
+    })
+    // window.location.href = `/overview`;
   };
-  const { mutateUser } = useUser({
-    redirectTo: "/home",
-    redirectIfFound: true,
-  });
 
   return (
       <Grid container component="main" sx={{ height: '100vh' }}>

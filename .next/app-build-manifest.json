@@ -12,27 +12,27 @@
       "static/css/app/page.css",
       "static/chunks/app/page.js"
     ],
+    "/signin/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/signin/page.js"
+    ],
     "/overview/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/overview/page.css",
       "static/chunks/app/overview/page.js"
     ],
+    "/logintest/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/logintest/page.js"
+    ],
     "/overview/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/overview/[id]/page.css",
       "static/chunks/app/overview/[id]/page.js"
-    ],
-    "/signin/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/signin/page.js"
-    ],
-    "/logintest/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/logintest/page.js"
     ],
     "/logintest/layout": [
       "static/chunks/webpack.js",

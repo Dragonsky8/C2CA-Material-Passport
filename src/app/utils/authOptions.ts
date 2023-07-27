@@ -1,11 +1,14 @@
-import NextAuth, { NextAuthOptions } from "next-auth"
+import NextAuth, { NextAuthOptions, Session } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import prisma from "../../../lib/prisma"
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export const authOptions: NextAuthOptions = {
   // https://next-auth.js.org/configuration/providers/oauth
+  // adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -50,11 +53,16 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
-    async jwt({ token }) {
-      token.userRole = "admin"
-      return token
-    },
-  },
+		async jwt({ token, user }) {
+			return { ...token, ...user };
+		},
+		async session({ session, token }: { session: Session; token: any }) {
+			return { ...session, user: token };
+		},
+	},
+  session: {
+		strategy: "jwt",
+	},
   pages: {
     signIn: '/logintest'
   }

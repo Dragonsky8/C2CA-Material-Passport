@@ -40,13 +40,21 @@ export const authOptions: NextAuthOptions = {
         // if (res.ok && user) {
         //   return user
         // }
+
+        console.log(credentials.username ==="jan")
         if (credentials.username ==="hank") {
             return {
                 id: '1',
                 username: "hank",
                 role: "admin"
             }
-        }
+        } if (credentials.username ==="jan") {
+          return {
+              id: '1',
+              username: "viewer",
+              role: "viewer"
+          }
+      }
         // Return null if user data could not be retrieved
         return null
       }

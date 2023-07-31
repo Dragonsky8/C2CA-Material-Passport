@@ -6,51 +6,11 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/page": [
+    "/add/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
-    ],
-    "/signin/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/signin/page.js"
-    ],
-    "/overview/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/overview/page.css",
-      "static/chunks/app/overview/page.js"
-    ],
-    "/logintest/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/logintest/page.js"
-    ],
-    "/overview/[id]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/overview/[id]/page.css",
-      "static/chunks/app/overview/[id]/page.js"
-    ],
-    "/logintest/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/logintest/layout.css",
-      "static/chunks/app/logintest/layout.js"
-    ],
-    "/overview/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/overview/layout.css",
-      "static/chunks/app/overview/layout.js"
-    ],
-    "/signin/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/signin/layout.css",
-      "static/chunks/app/signin/layout.js"
+      "static/css/app/add/layout.css",
+      "static/chunks/app/add/layout.js"
     ],
     "/add/page": [
       "static/chunks/webpack.js",
@@ -58,23 +18,17 @@
       "static/css/app/add/page.css",
       "static/chunks/app/add/page.js"
     ],
-    "/add/layout": [
+    "/overview/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/add/layout.css",
-      "static/chunks/app/add/layout.js"
+      "static/css/app/overview/page.css",
+      "static/chunks/app/overview/page.js"
     ],
-    "/home/page": [
+    "/overview/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/home/page.css",
-      "static/chunks/app/home/page.js"
-    ],
-    "/home/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/home/layout.css",
-      "static/chunks/app/home/layout.js"
+      "static/css/app/overview/layout.css",
+      "static/chunks/app/overview/layout.js"
     ]
   }
 }

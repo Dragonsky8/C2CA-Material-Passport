@@ -63,8 +63,8 @@ export async function PATCH(
     const user = await prisma.users.findFirstOrThrow()
     const userPrisma = prisma.$extends(forUser(user.id))
     const res = await userPrisma.material.update({
-      where: { id: dbId + 1 },
-      data: { name: "hank" },
+      where: { id: dbId },
+      data: data,
     });
     return new NextResponse(JSON.stringify("good"), {
       status: 200,

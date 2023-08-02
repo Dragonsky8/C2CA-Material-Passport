@@ -19,7 +19,7 @@ export default function CardBody({ children }: PageProps) {
           borderRadius: "20px",
           border: "solid #c2c2c2 2px",
           width: "100%",
-          gap: '20px'
+          gap: '40px'
         }}
       >
         {children}

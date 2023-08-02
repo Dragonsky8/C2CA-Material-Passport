@@ -22,7 +22,7 @@ type ResObj = {
 }
 // Asynchronously fetch data
 async function getEntity(id: string) {
-  const res = await fetch(process.env.URL + `/api/entity/${id}`, {next: {revalidate: 2}});
+  const res = await fetch(process.env.URL + `/api/entity/${id}`, { cache: 'no-store' });
   if (!res.ok) {
     throw new Error("hellluup");
   }

@@ -18,6 +18,11 @@ type ResObj = {
   producer: string;
 };
 
+interface FieldType {
+  name: string;
+  value: string;
+}
+
 export default function BasicTable({
   props,
   editable,
@@ -27,6 +32,37 @@ export default function BasicTable({
 }) {
   const [isEditable, setIsEditable] = useState(false);
   var bgColor = "transparent";
+
+  // Object of FieldTypes
+  const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
+  // Store the input fields in the inputValues state
+  const handleInputChange = (e: any) => {
+    const fieldInfo: FieldType = {
+      name: e.currentTarget.id,
+      value: e.currentTarget.value,
+    };
+    setInputValues((prevState) => ({
+      ...prevState,
+      [fieldInfo.name]: fieldInfo.value,
+    }));
+  };
+  // Create the fetch call, to update via the API endpoint
+  const handleSubmit = async () => {
+    const bodyPatch = {"id": props.id , ...inputValues}
+    console.log(bodyPatch)
+    const res = await fetch(`/api/entity/${2}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyPatch),
+    });
+    if (!res.ok) {
+      throw new Error("hellluup");
+    }
+    window.location.reload()
+  };
+
   function showEdit() {
     if (editable) {
       setIsEditable(!isEditable);
@@ -35,13 +71,26 @@ export default function BasicTable({
   const editButton = () => {
     if (isEditable) {
       bgColor = "lightGray";
-      return <Button variant="contained" onClick={showEdit}> Save</Button>;
+      return (
+        <Button
+          variant="contained"
+          onClick={() => {
+            showEdit();
+            handleSubmit();
+          }}
+        >
+          Save
+        </Button>
+      );
     } else {
       bgColor = "transparent";
-      return <Button variant="contained" onClick={showEdit}> Edit me</Button>;
+      return (
+        <Button variant="contained" onClick={showEdit}>
+          Edit me
+        </Button>
+      );
     }
-  }
-
+  };
   return (
     <Box
       sx={{
@@ -51,34 +100,68 @@ export default function BasicTable({
       }}
     >
       {editButton()}
+      {/* Render each individual field and value. */}
       {Object.keys(props).map((key) => {
-        return (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: 'center',
-              minWidth: "40vh",
-              columnGap: "2vw",
-            }}
-          >
-            <Box>
-              <Typography variant="h6"> {key.toString()}</Typography>
+        // Check and ensure that some fields remain uneditable, Use a list checker or something
+        if (key === "id") {
+          return (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                minWidth: "40vh",
+                columnGap: "2vw",
+              }}
+            >
+              <Box>
+                <Typography variant="h6"> {key.toString()}</Typography>
+              </Box>
+              <Box>
+                <TextField
+                  disabled
+                  label={key.toString()}
+                  defaultValue={props[key]}
+                  sx={{
+                    backgroundColor: "transparent",
+                    minWidth: "60vh",
+                  }}
+                />
+              </Box>
             </Box>
-            <Box>
-              <TextField
-                disabled={!isEditable}
-                label={key.toString()}
-                defaultValue={props[key]}
-                sx={{
-                  backgroundColor: bgColor,
-                  minWidth: "60vh",
-                }}
-              />
+          );
+        } else {
+          return (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                minWidth: "40vh",
+                columnGap: "2vw",
+              }}
+            >
+              <Box>
+                <Typography variant="h6"> {key.toString()}</Typography>
+              </Box>
+              <Box>
+                <TextField
+                  id={key}
+                  disabled={!isEditable}
+                  label={key.toString()}
+                  defaultValue={props[key]}
+                  sx={{
+                    backgroundColor: bgColor,
+                    minWidth: "60vh",
+                  }}
+                  onChange={handleInputChange}
+                />
+              </Box>
             </Box>
-          </Box>
-        );
+          );
+        }
       })}
     </Box>
   );

@@ -4,6 +4,8 @@ import styles from "../page.module.css";
 import SearchBox from "@/component/searchBox/searchBox";
 import CardBody from "@/component/cardBody/cardBody";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import {authOptions} from "../utils/authOptions";
 
 export const metadata: Metadata = {
   title: "Overview",
@@ -14,6 +16,9 @@ export const metadata: Metadata = {
  * @returns Overview page where you can search by RFID identifier
  */
 export default async function Overview() {
+  const session = await getServerSession(authOptions);
+  // console.log(session)
+
   return (
     <CardBody>
       <>
@@ -21,8 +26,7 @@ export default async function Overview() {
           <SearchBox />
         </Box>
         <Box>
-          {" "}
-          Hello. Here you can find an overview on the material properties!
+          Hello {session?.user?.username}. Here you can find an overview on the material properties!
         </Box>
       </>
     </CardBody>

@@ -1,18 +1,17 @@
-import NextAuth, { NextAuthOptions, Session } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
-import prisma from "../../../lib/prisma"
+import NextAuth, { NextAuthOptions, Session } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import prisma from "../../../lib/prisma";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export const authOptions: NextAuthOptions = {
   // https://next-auth.js.org/configuration/providers/oauth
-  // adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: 'Credentials',
+      name: "Credentials",
       // The credentials is used to generate a suitable form on the sign in page.
       // You can specify whatever fields you are expecting to be submitted.
       // e.g. domain, username, password, 2FA token, etc.
@@ -20,7 +19,7 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
-        role: { label: 'Role', type: 'text' }
+        role: { label: "Role", type: "text" },
       },
       async authorize(credentials, req) {
         // You need to provide your own logic here that takes the credentials
@@ -35,45 +34,58 @@ export const authOptions: NextAuthOptions = {
         //   headers: { "Content-Type": "application/json" }
         // })
         // const user = await res.json()
-  
+
         // If no error and we have user data, return it
         // if (res.ok && user) {
         //   return user
         // }
+        
+        // Prisma access
+        const user = await prisma.users.findFirst({
+          where: { userName: credentials?.username },
+        });
 
-        console.log(credentials.username ==="jan")
-        if (credentials.username ==="hank") {
-            return {
-                id: '1',
-                username: "hank",
-                role: "admin"
-            }
-        } if (credentials.username ==="jan") {
+        if (user?.password == credentials?.password)
+        {
           return {
-              id: '1',
-              username: "viewer",
-              role: "viewer"
+            username: user?.userName,
+            role: user?.role
           }
-      }
+        }
+        // console.log(credentials?.username === "jan");
+        // if (credentials?.username === "hank") {
+        //   return {
+        //     id: "1",
+        //     username: "hank",
+        //     role: "admin",
+        //   };
+        // }
+        // if (credentials.username === "jan") {
+        //   return {
+        //     id: "1",
+        //     username: "viewer",
+        //     role: "viewer",
+        //   };
+        // }
         // Return null if user data could not be retrieved
-        return null
-      }
-    })
+        return null;
+      },
+    }),
   ],
   callbacks: {
-		async jwt({ token, user }) {
-			return { ...token, ...user };
-		},
-		async session({ session, token }: { session: Session; token: any }) {
-			return { ...session, user: token };
-		},
-	},
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token }: { session: Session; token: any }) {
+      return { ...session, user: token };
+    },
+  },
   session: {
-		strategy: "jwt",
-	},
+    strategy: "jwt",
+  },
   pages: {
-    signIn: '/logintest'
-  }
-}
+    signIn: "/logintest",
+  },
+};
 
-export default NextAuth(authOptions)
+export default NextAuth(authOptions);

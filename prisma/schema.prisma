@@ -2,25 +2,62 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["public", "audit"]
 }
 
 model Material {
-  id               Int      @id @default(autoincrement())
+  id               Int               @id @default(autoincrement())
   dateOfProduction DateTime
   name             String
   producer         String
   mixture          String
+  MaterialVersion  MaterialVersion[]
+
+  @@schema("public")
 }
 
 model Users {
-  id       Int    @id @default(autoincrement())
-  userName String
-  role     String
-  password String
+  id              Int               @id @default(autoincrement())
+  userName        String
+  role            String
+  password        String
+  MaterialVersion MaterialVersion[]
+
+  @@schema("public")
+}
+
+enum AuditOperation {
+  INSERT
+  UPDATE
+  DELETE
+
+  @@schema("audit")
+}
+
+model MaterialVersion {
+  // Version metadata fields
+  versionId         Int            @id @default(autoincrement())
+  versionOperation  AuditOperation
+  versionMaterialId Int?
+  versionUserId     Int?
+  versionTimestamp  DateTime
+
+  // Mirrored fields from the Order table
+  id               Int
+  dateOfProduction DateTime
+  name             String
+  producer         String
+  mixture          String
+
+  material Material? @relation(fields: [versionMaterialId], references: [id])
+  user     Users?    @relation(fields: [versionUserId], references: [id])
+
+  @@schema("audit")
 }

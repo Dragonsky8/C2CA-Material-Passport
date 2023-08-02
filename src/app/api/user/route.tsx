@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import prisma from '../../../../lib/prisma'
  
 export async function GET(request: Request) {
   // const { searchParams } = new URL(request.url)
@@ -10,6 +11,11 @@ export async function GET(request: Request) {
   //   },
   // })
   // const product = await res.json()
- 
+  // const credentials = request.body;
+  // const res = await prisma.users.findUnique({
+  //   where: {
+  //     userName: credentials?.username
+  //   }
+  // })
   return NextResponse.json( JSON.stringify({"test": "cool"}) )
 }

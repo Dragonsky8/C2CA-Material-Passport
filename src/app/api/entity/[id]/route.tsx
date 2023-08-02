@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../../../lib/prisma";
+import { forUser } from "../../../../../lib/prisma";
 
 // Fetch one specific entity info
 export async function GET(
@@ -23,7 +24,9 @@ export async function POST(request: Request) {
   data.dateOfProduction = new Date();
   // Try to add new entity. Catch the error when it fails
   try {
-    const res = await prisma.material.create({
+    const user = await prisma.users.findFirstOrThrow()
+    const userPrisma = prisma.$extends(forUser(user.id))
+    const res = await userPrisma.material.create({
       data: data,
     });
     return new NextResponse(JSON.stringify("good"), {
@@ -57,7 +60,9 @@ export async function PATCH(
   const dbId = parseInt(data.id);
   // Try to add new entity. Catch the error when it fails
   try {
-    const res = await prisma.material.update({
+    const user = await prisma.users.findFirstOrThrow()
+    const userPrisma = prisma.$extends(forUser(user.id))
+    const res = await userPrisma.material.update({
       where: { id: dbId + 1 },
       data: { name: "hank" },
     });

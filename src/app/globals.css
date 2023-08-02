@@ -67,4 +67,10 @@ a {
   text-decoration: none;
 }
 
+:disabled {
+  color: black !important;
+  -webkit-text-fill-color: black !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
 

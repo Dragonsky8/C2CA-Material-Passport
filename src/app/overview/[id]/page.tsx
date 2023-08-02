@@ -5,6 +5,8 @@ import SearchBox from "@/component/searchBox/searchBox";
 import CardBody from "@/component/cardBody/cardBody";
 import BasicTable from "@/component/dataTable/dataTable";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/utils/authOptions";
 
 export const metadata: Metadata = {
   title: 'Overview',
@@ -37,6 +39,11 @@ export default async function specificOverview({
   params: { id: string };
 }) {
   // Get current search ID from params
+  const session = await getServerSession(authOptions)
+  let isAdmin = false
+  if (session?.user?.role === "admin") {
+    isAdmin = true
+  }
   console.log(params.id);
   const entityInfo: ResObj = await getEntity(params.id)
 
@@ -51,12 +58,12 @@ export default async function specificOverview({
               flexDirection: 'column',
               gap: '1vh'
             }}>
-          {" "}
           Hello. you are viewing {entityInfo["name"]}
-      <BasicTable props={entityInfo}/>
+      <BasicTable props={entityInfo} editable={isAdmin}/>
         </Box>
         
       </>
     </CardBody>
   );
 }
+

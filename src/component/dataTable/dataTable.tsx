@@ -48,8 +48,8 @@ export default function BasicTable({
   };
   // Create the fetch call, to update via the API endpoint
   const handleSubmit = async () => {
-    const bodyPatch = {"id": props.id , ...inputValues}
-    console.log(bodyPatch)
+    const bodyPatch = { id: props.id, ...inputValues };
+    console.log(bodyPatch);
     const res = await fetch(`/api/entity/${2}`, {
       method: "PATCH",
       headers: {
@@ -60,7 +60,7 @@ export default function BasicTable({
     if (!res.ok) {
       throw new Error("hellluup");
     }
-    window.location.reload()
+    window.location.reload();
   };
 
   function showEdit() {
@@ -100,69 +100,90 @@ export default function BasicTable({
       }}
     >
       {editButton()}
-      {/* Render each individual field and value. */}
-      {Object.keys(props).map((key) => {
-        // Check and ensure that some fields remain uneditable, Use a list checker or something
-        if (key === "id") {
-          return (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                minWidth: "40vh",
-                columnGap: "2vw",
-              }}
-            >
-              <Box>
-                <Typography variant="h6"> {key.toString()}</Typography>
+      {/* Render each individual fieldname. */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          rowGap: "2vh",
+          columnGap: "2vw"
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignContent: 'center',
+            rowGap: '2vh'
+          }}
+        >
+          {Object.keys(props).map((key) => {
+            // Check and ensure that some fields remain uneditable, Use a list checker or something
+            return (
+              <Box sx={{
+                display: 'flex',
+                flexDirection: "column",
+                minHeight: "3.5em",
+              }}>
+                <Typography variant="h6" sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  minHeight: '100%',
+                  justifyContent: 'center'
+
+                }}> {key.toString()}</Typography>
               </Box>
-              <Box>
-                <TextField
-                  disabled
-                  label={key.toString()}
-                  defaultValue={props[key]}
+            );
+          })}
+        </Box>
+        {/* Render each individual value. */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "2vh",
+          }}
+        >
+          {Object.keys(props).map((key) => {
+            // Check and ensure that some fields remain uneditable, Use a list checker or something
+            if (key === "id") {
+              return (
+                <Box>
+                  <TextField
+                    disabled
+                    label={key.toString()}
+                    defaultValue={props[key]}
+                    sx={{
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                </Box>
+              );
+            } else {
+              return (
+                <Box
                   sx={{
-                    backgroundColor: "transparent",
-                    minWidth: "60vh",
+                    display: "flex",
+                    minWidth: "65%",
                   }}
-                />
-              </Box>
-            </Box>
-          );
-        } else {
-          return (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                minWidth: "40vh",
-                columnGap: "2vw",
-              }}
-            >
-              <Box>
-                <Typography variant="h6"> {key.toString()}</Typography>
-              </Box>
-              <Box>
-                <TextField
-                  id={key}
-                  disabled={!isEditable}
-                  label={key.toString()}
-                  defaultValue={props[key]}
-                  sx={{
-                    backgroundColor: bgColor,
-                    minWidth: "60vh",
-                  }}
-                  onChange={handleInputChange}
-                />
-              </Box>
-            </Box>
-          );
-        }
-      })}
+                >
+                  <TextField
+                    id={key}
+                    disabled={!isEditable}
+                    label={key.toString()}
+                    defaultValue={props[key]}
+                    sx={{
+                      backgroundColor: bgColor,
+                      width: "100%",
+                    }}
+                    onChange={handleInputChange}
+                  />
+                </Box>
+              );
+            }
+          })}
+        </Box>
+      </Box>
     </Box>
   );
 }

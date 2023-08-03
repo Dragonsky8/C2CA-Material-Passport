@@ -106,32 +106,39 @@ export default function BasicTable({
           display: "flex",
           flexDirection: "row",
           rowGap: "2vh",
-          columnGap: "2vw"
+          columnGap: "2vw",
         }}
       >
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-            alignContent: 'center',
-            rowGap: '2vh'
+            alignContent: "center",
+            rowGap: "2vh",
           }}
         >
           {Object.keys(props).map((key) => {
             // Check and ensure that some fields remain uneditable, Use a list checker or something
             return (
-              <Box sx={{
-                display: 'flex',
-                flexDirection: "column",
-                minHeight: "3.5em",
-              }}>
-                <Typography variant="h6" sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  minHeight: '100%',
-                  justifyContent: 'center'
-
-                }}> {key.toString()}</Typography>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  minHeight: "3.5em",
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: "100%",
+                    justifyContent: "center",
+                  }}
+                >
+                  {" "}
+                  {key.toString()}
+                </Typography>
               </Box>
             );
           })}
@@ -142,6 +149,7 @@ export default function BasicTable({
             display: "flex",
             flexDirection: "column",
             rowGap: "2vh",
+            flexGrow: 1,
           }}
         >
           {Object.keys(props).map((key) => {
@@ -155,18 +163,14 @@ export default function BasicTable({
                     defaultValue={props[key]}
                     sx={{
                       backgroundColor: "transparent",
+                      width: "100%",
                     }}
                   />
                 </Box>
               );
             } else {
               return (
-                <Box
-                  sx={{
-                    display: "flex",
-                    minWidth: "65%",
-                  }}
-                >
+                <Box>
                   <TextField
                     id={key}
                     disabled={!isEditable}

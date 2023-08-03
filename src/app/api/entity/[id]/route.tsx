@@ -8,10 +8,12 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const identifier = params.id; // 'a', 'b', or 'c'
-  // console.log(identifier);
   const res = await prisma.material.findFirst({
     where: { id: parseInt(identifier) },
   });
+  // const res2 = await prisma.materialVersion.findMany({
+  //   where: {versionMaterialId: parseInt(identifier)}
+  // })
   // console.log(res)
   return NextResponse.json(res);
   // return NextResponse.json(JSON.stringify({ test: `${identifier}` }));

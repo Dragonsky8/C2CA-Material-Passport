@@ -62,7 +62,10 @@ export default async function specificOverview({
   return (
     <CardBody>
       <>
-        <Box>
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}>
           <SearchBox />
         </Box>
         <Box
@@ -70,8 +73,8 @@ export default async function specificOverview({
             display: "flex",
             flexDirection: "column",
             gap: "1vh",
-            minWidth: "50vw",
-
+            minWidth: "30vw",
+            flexGrow: 2
           }}
         >
           Hello. you are viewing {entityInfo["name"]}
@@ -79,6 +82,10 @@ export default async function specificOverview({
         </Box>
         <Box
           sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            minWidth: '20vw'
           }}
         >
           <Typography variant="h6"> Maybe History</Typography>

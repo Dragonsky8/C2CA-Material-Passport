@@ -13,12 +13,32 @@ datasource db {
 }
 
 model Material {
-  id               Int               @id @default(autoincrement())
+  id               Int               @id @unique @default(autoincrement()) 
   dateOfProduction DateTime
   name             String
   producer         String
   mixture          String
   MaterialVersion  MaterialVersion[]
+  production      Production[]
+
+  @@schema("public")
+}
+
+model Production {
+  id                  Int     @id @unique 
+  name                String
+  // Dimensions
+  weight              Int
+  volume              Int
+  density             Int
+  area                Decimal
+  // Structural Data
+  compressionStrength Int
+  loadBearing         Int
+  stability           Int
+  resistance          Int?
+
+  materialParent      Material? @relation(fields: [id], references: [id])
 
   @@schema("public")
 }
@@ -40,6 +60,7 @@ enum AuditOperation {
 
   @@schema("audit")
 }
+
 // https://github.com/prisma/prisma-client-extensions/tree/main/audit-log-context
 
 model MaterialVersion {

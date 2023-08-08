@@ -26,9 +26,11 @@ interface FieldType {
 export default function BasicTable({
   props,
   editable,
+  subSection = "",
 }: {
-  props: ResObj;
+  props: ResObj;  
   editable: boolean;
+  subSection?: string;
 }) {
   const [isEditable, setIsEditable] = useState(false);
   var bgColor = "transparent";
@@ -49,8 +51,8 @@ export default function BasicTable({
   // Create the fetch call, to update via the API endpoint
   const handleSubmit = async () => {
     const bodyPatch = { id: props.id, ...inputValues };
-    console.log(bodyPatch);
-    const res = await fetch(`/api/entity/${2}`, {
+    console.log("i am pushing for ", subSection);
+    const res = await fetch(`/api/entity/${subSection}/${2}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -50,8 +50,11 @@ export default function BasicTable({
   };
   // Create the fetch call, to update via the API endpoint
   const handleSubmit = async () => {
+    // If nothing changed, do not reload page. Saves load on the server.
+    if (!inputValues) {
+      return
+    }
     const bodyPatch = { id: props.id, ...inputValues };
-    console.log("i am pushing for ", subSection);
     const res = await fetch(`/api/entity/${subSection}/${2}`, {
       method: "PATCH",
       headers: {
@@ -177,7 +180,7 @@ export default function BasicTable({
                     id={key}
                     disabled={!isEditable}
                     label={key.toString()}
-                    defaultValue={props[key]}
+                    defaultValue={props[key as keyof typeof props]}
                     sx={{
                       backgroundColor: bgColor,
                       width: "100%",

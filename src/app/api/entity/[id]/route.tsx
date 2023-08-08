@@ -31,6 +31,10 @@ export async function POST(request: Request) {
     const res = await userPrisma.material.create({
       data: data,
     });
+    console.log("res is giving id: ", res.id)
+    // create additional entries in other categories
+
+    // Return status if everything succeeded
     return new NextResponse(JSON.stringify("good"), {
       status: 200,
       headers: { "Content-Type": "application/json" },

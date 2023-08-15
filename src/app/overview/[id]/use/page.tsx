@@ -1,5 +1,5 @@
 import MediaCard from "@/component/media/mediaCard";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import styles from "../page.module.css";
 import SearchBox from "@/component/searchBox/searchBox";
 import CardBody from "@/component/cardBody/cardBody";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "Use phase",
   description: "Usage information",
 };
-const subSection = "use"
+const subSection = "use";
 
 type ResObj = {
   id: string;
@@ -63,10 +63,12 @@ export default async function specificOverview({
   return (
     <CardBody>
       <>
-        <Box sx={{
+        <Box
+          sx={{
             display: "flex",
             flexDirection: "column",
-          }}>
+          }}
+        >
           <SearchBox />
         </Box>
         <Box
@@ -75,18 +77,28 @@ export default async function specificOverview({
             flexDirection: "column",
             gap: "1vh",
             minWidth: "30vw",
-            flexGrow: 2
-          }}
-        >
+            flexGrow: 2,
+          }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 0,
+            }}>
+            <Button href={`/overview/${params.id}`}> Back to Overview</Button>
+          </Box>{" "}
           Hello. you are viewing properties of {entityInfo["name"]}
-          <BasicTable props={entityInfo} editable={isAdmin} subSection={subSection} />
+          <BasicTable
+            props={entityInfo}
+            editable={isAdmin}
+            subSection={subSection}
+          />
         </Box>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
+            display: "flex",
+            flexDirection: "column",
             flexGrow: 1,
-            minWidth: '20vw'
+            minWidth: "20vw",
           }}
         >
           <Typography variant="h6"> Maybe History</Typography>

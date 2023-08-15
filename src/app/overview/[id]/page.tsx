@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 interface pageType {
+  RawMaterial: string;
   Production: string;
   Build: string;
   Use: string;
@@ -22,6 +23,8 @@ interface pageType {
 }
 const pageTypes = ["Build", "Production", "Use", "Recycle"];
 const pageText: pageType = {
+  RawMaterial: "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
+                "information about the raw materials, or the complete concrete production process.",
   Production: "Information on the production process and material?",
   Build: "Information regarding construction, contractors and such and such",
   Use: "Information regarding usage in building and state. To explore more, click",

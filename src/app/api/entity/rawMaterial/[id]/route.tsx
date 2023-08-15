@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "../../../../../../lib/prisma";
 import { forUser } from "../../../../../../lib/prisma";
 
-// Fetch one specific entity production info
+// Fetch one specific entity rawMaterial info
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
@@ -11,7 +11,7 @@ export async function GET(
 //   const res = await prisma.material.findFirst({
 //     where: { id: parseInt(identifier) },
 //   });
-  const res = await prisma.production.findUnique({
+  const res = await prisma.rawMaterial.findUnique({
     where: {id: parseInt(identifier)}
   })
   // console.log(res)
@@ -38,7 +38,7 @@ export async function PATCH(
   try {
     const user = await prisma.users.findFirstOrThrow()
     const userPrisma = prisma.$extends(forUser(user.id))
-    const res = await userPrisma.production.update({
+    const res = await userPrisma.rawMaterial.update({
       where: { id: dbId },
       data: data,
     });

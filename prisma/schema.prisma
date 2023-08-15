@@ -13,19 +13,35 @@ datasource db {
 }
 
 model Material {
-  id               Int               @id @unique @default(autoincrement()) 
+  id               Int               @id @unique @default(autoincrement())
   dateOfProduction DateTime
   name             String
   producer         String
-  mixture          String
+  materialType     String
   MaterialVersion  MaterialVersion[]
-  production      Production[]
+
+  production    Production[]
+  recyclingData Recycle?     @relation("recyclingData")
+  buildData     Build[]
+  useData       Use[]
+  rawMaterial   RawMaterial? @relation("rawMaterial")
+
+  // historyData Material[] @relation("linkToNewRecycling" ,fields: [id], references: [id])
+
+  @@schema("public")
+}
+
+model RawMaterial {
+  id   Int    @id @unique
+  sand String
+
+  materialParent Material @relation("rawMaterial", fields: [id], references: [id])
 
   @@schema("public")
 }
 
 model Production {
-  id                  Int     @id @unique 
+  id                  Int     @id @unique
   name                String
   // Dimensions
   weight              Int
@@ -38,7 +54,39 @@ model Production {
   stability           Int
   resistance          Int?
 
-  materialParent      Material? @relation(fields: [id], references: [id])
+  materialParent Material? @relation(fields: [id], references: [id])
+
+  @@schema("public")
+}
+
+model Build {
+  id          Int    @id @unique
+  name        String
+  constructor String
+
+  materialParent Material? @relation(fields: [id], references: [id])
+
+  @@schema("public")
+}
+
+model Use {
+  id           Int      @id @unique
+  name         String
+  location     String
+  buildingDate DateTime
+
+  materialParent Material? @relation(fields: [id], references: [id])
+
+  @@schema("public")
+}
+
+model Recycle {
+  id               Int    @id @unique
+  name             String
+  recyclingCompany String
+
+  materialParent Material? @relation("recyclingData", fields: [id], references: [id])
+  // nextLocation   Material[]  // This should store the ID of the new recycled product or products
 
   @@schema("public")
 }

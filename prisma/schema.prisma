@@ -33,26 +33,26 @@ model Material {
 
 model RawMaterial {
   id   Int    @id @unique
-  sand String
+  sand String?
 
-  materialParent Material @relation("rawMaterial", fields: [id], references: [id])
+  materialParent Material? @relation("rawMaterial", fields: [id], references: [id])
 
   @@schema("public")
 }
 
 model Production {
   id                  Int     @id @unique
-  name                String
+  name                String?
   // Dimensions
-  weight              Int
-  volume              Int
-  density             Int
-  area                Decimal
+  weight              String?
+  volume              String?
+  density             String?
+  area                String?
   // Structural Data
-  compressionStrength Int
-  loadBearing         Int
-  stability           Int
-  resistance          Int?
+  compressionStrength String?
+  loadBearing         String?
+  stability           String?
+  resistance          String?
 
   materialParent Material? @relation(fields: [id], references: [id])
 
@@ -61,8 +61,8 @@ model Production {
 
 model Build {
   id          Int    @id @unique
-  name        String
-  constructor String
+  name        String?
+  constructor String?
 
   materialParent Material? @relation(fields: [id], references: [id])
 
@@ -71,9 +71,9 @@ model Build {
 
 model Use {
   id           Int      @id @unique
-  name         String
-  location     String
-  buildingDate DateTime
+  name         String?
+  location     String?
+  buildingDate DateTime?
 
   materialParent Material? @relation(fields: [id], references: [id])
 
@@ -82,8 +82,8 @@ model Use {
 
 model Recycle {
   id               Int    @id @unique
-  name             String
-  recyclingCompany String
+  name             String?
+  recyclingCompany String?
 
   materialParent Material? @relation("recyclingData", fields: [id], references: [id])
   // nextLocation   Material[]  // This should store the ID of the new recycled product or products
@@ -124,7 +124,7 @@ model MaterialVersion {
   dateOfProduction DateTime
   name             String
   producer         String
-  mixture          String
+  
 
   material Material? @relation(fields: [versionMaterialId], references: [id])
   user     Users?    @relation(fields: [versionUserId], references: [id])

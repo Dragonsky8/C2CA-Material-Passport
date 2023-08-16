@@ -7,8 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import testProp from "@/types/dataType";
 
 type ResObj = {
   id: string;
@@ -16,7 +17,10 @@ type ResObj = {
   name: string;
   mixture: string;
   producer: string;
+  materialType: string;
 };
+
+
 
 interface FieldType {
   name: string;
@@ -28,7 +32,7 @@ export default function BasicTable({
   editable,
   subSection = "",
 }: {
-  props: ResObj;  
+  props: ResObj & testProp ; // testProp is a prop implemented in a seperate file
   editable: boolean;
   subSection?: string;
 }) {
@@ -48,12 +52,24 @@ export default function BasicTable({
       [fieldInfo.name]: fieldInfo.value,
     }));
   };
+  // Custom material handler
+  const handleMaterialChange = (e: any) => {
+    const fieldInfo: FieldType = {
+      name: "materialType",
+      value: e.target.value,
+    };
+    setInputValues((prevState) => ({
+      ...prevState,
+      [fieldInfo.name]: fieldInfo.value,
+    }));
+  }
   // Create the fetch call, to update via the API endpoint
   const handleSubmit = async () => {
     // If nothing changed, do not reload page. Saves load on the server.
     if (!inputValues) {
-      return
+      return;
     }
+    console.log(typeof(inputValues.weight))
     const bodyPatch = { id: props.id, ...inputValues };
     const res = await fetch(`/api/entity/${subSection}/${2}`, {
       method: "PATCH",
@@ -171,6 +187,30 @@ export default function BasicTable({
                       width: "100%",
                     }}
                   />
+                </Box>
+              );
+            } else if (key === "materialType") {
+              return (
+                <Box>
+                  <FormControl fullWidth disabled={!isEditable} sx={{
+                      backgroundColor: bgColor,
+                      width: "100%",
+                    }}>
+                    <InputLabel id="test">MaterialType</InputLabel>
+                    <Select
+                      id="test"
+                      label="Age"
+                      defaultValue={props[key]}
+                      onChange={handleMaterialChange}
+                    >
+                      <MenuItem id="materialType" value={"Raw"}>
+                        Raw
+                      </MenuItem>
+                      <MenuItem id="materialType" value={"Processed"}>
+                        Processed
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
                 </Box>
               );
             } else {

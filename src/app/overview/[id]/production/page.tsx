@@ -18,8 +18,7 @@ type ResObj = {
   id: string;
   dateOfProduction: Date;
   name: string;
-  mixture: string;
-  producer: string;
+  materialType: string;
 };
 // Asynchronously fetch data
 async function getEntity(id: string) {

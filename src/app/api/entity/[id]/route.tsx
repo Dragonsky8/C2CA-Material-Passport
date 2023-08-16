@@ -19,7 +19,7 @@ export async function GET(
   // return NextResponse.json(JSON.stringify({ test: `${identifier}` }));
 }
 
-// Create a new entity
+// Create a new complete material page
 export async function POST(request: Request) {
   const data = await request.json();
   // Add production date
@@ -33,6 +33,31 @@ export async function POST(request: Request) {
     });
     console.log("res is giving id: ", res.id)
     // create additional entries in other categories
+    await userPrisma.rawMaterial.create({
+      data: {
+        id: res.id
+      }
+    })
+    await userPrisma.production.create({
+      data: {
+        id: res.id
+      }
+    })
+    await userPrisma.build.create({
+      data: {
+        id: res.id
+      }
+    })
+    await userPrisma.use.create({
+      data: {
+        id: res.id
+      }
+    })
+    await userPrisma.recycle.create({
+      data: {
+        id: res.id
+      }
+    })
 
     // Return status if everything succeeded
     return new NextResponse(JSON.stringify("good"), {

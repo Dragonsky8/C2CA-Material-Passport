@@ -84,7 +84,7 @@ export default async function specificOverview({
           <BasicTable
             props={entityInfo}
             editable={isAdmin}
-            subSection="production"
+            subSection="rawmaterial"
           />
         </Box>
         <Box

@@ -59,7 +59,7 @@ export default function BasicTable({
     if (!inputValues) {
       return;
     }
-    console.log(typeof(inputValues.weight))
+    console.log(subSection)
     const bodyPatch = { id: props.id, ...inputValues };
     const res = await fetch(`/api/entity/${subSection}/${2}`, {
       method: "PATCH",

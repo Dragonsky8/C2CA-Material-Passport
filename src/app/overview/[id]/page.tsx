@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
 import NestedList from "@/component/nestedList/nestedList";
+import testProp, { ResObj } from "@/types/dataType";
 
 export const metadata: Metadata = {
   title: "Overview",
@@ -16,10 +17,10 @@ export const metadata: Metadata = {
 
 interface pageType {
   RawMaterial: string;
-  Production: string;
-  Build: string;
-  Use: string;
-  Recycle: string;
+  Production?: string;
+  Build?: string;
+  Use?: string;
+  Recycle?: string;
 }
 const pageText: pageType = {
   RawMaterial: "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
@@ -32,14 +33,6 @@ const pageText: pageType = {
 const pageTextRaw: pageType = {
   RawMaterial: "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
                 "information about the raw materials, or the complete concrete production process.",
-};
-
-type ResObj = {
-  id: string;
-  dateOfProduction: Date;
-  name: string;
-  materialType: string;
-  producer: string;
 };
 // Asynchronously fetch data
 async function getEntity(id: string) {
@@ -75,7 +68,7 @@ export default async function specificOverview({
   if (session?.user?.role === "admin") {
     isAdmin = true;
   }
-  const entityInfo: ResObj = await getEntity(params.id);
+  const entityInfo: ResObj & testProp = await getEntity(params.id);
   const entityHistory = await getEntityHistory(params.id);
 
   // Set the variable to display only raw materials or all sub-pages
@@ -121,7 +114,7 @@ export default async function specificOverview({
                 flexShrink: 1,
                 flexBasis: 0,
               }}> 
-              <MediaCard title={pageName} cardText={materialPagetype[pageName as keyof typeof materialPagetype]} link={`${params.id}/${pageName.toLowerCase()}`}/>
+              <MediaCard title={pageName} cardText={materialPagetype[pageName as keyof typeof materialPagetype] as string} link={`${params.id}/${pageName.toLowerCase()}`}/>
               </Box>
             ))}
           </Box>

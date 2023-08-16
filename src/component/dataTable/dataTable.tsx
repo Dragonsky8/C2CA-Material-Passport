@@ -9,16 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import testProp from "@/types/dataType";
-
-type ResObj = {
-  id: string;
-  dateOfProduction: Date;
-  name: string;
-  mixture: string;
-  producer: string;
-  materialType: string;
-};
+import testProp, {ResObj} from "@/types/dataType";
 
 
 

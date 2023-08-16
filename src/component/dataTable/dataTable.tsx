@@ -29,7 +29,6 @@ export default function BasicTable({
 }) {
   const [isEditable, setIsEditable] = useState(false);
   var bgColor = "transparent";
-
   // Object of FieldTypes
   const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
   // Store the input fields in the inputValues state
@@ -173,6 +172,7 @@ export default function BasicTable({
                     disabled
                     label={key.toString()}
                     defaultValue={props[key]}
+                    type={typeof(key)}
                     sx={{
                       backgroundColor: "transparent",
                       width: "100%",
@@ -211,6 +211,7 @@ export default function BasicTable({
                     id={key}
                     disabled={!isEditable}
                     label={key.toString()}
+                    type={typeof(key)}
                     defaultValue={props[key as keyof typeof props]}
                     sx={{
                       backgroundColor: bgColor,

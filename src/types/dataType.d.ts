@@ -7,6 +7,7 @@ interface BuildProps {
 interface RawMaterialProps {
   id: number;
   sand: string;
+  dateOfProduction: Date;
 }
 
 interface ProductionProps {

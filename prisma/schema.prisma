@@ -34,6 +34,8 @@ model Material {
 model RawMaterial {
   id   Int    @id @unique
   sand String?
+  producer String?
+  dateOfProduction DateTime
 
   materialParent Material? @relation("rawMaterial", fields: [id], references: [id])
 

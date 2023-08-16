@@ -35,7 +35,8 @@ export async function POST(request: Request) {
     // create additional entries in other categories
     await userPrisma.rawMaterial.create({
       data: {
-        id: res.id
+        id: res.id,
+        dateOfProduction: res.dateOfProduction
       }
     })
     await userPrisma.production.create({

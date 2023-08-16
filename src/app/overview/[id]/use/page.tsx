@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
 import NestedList from "@/component/nestedList/nestedList";
+import testProp, { ResObj } from "@/types/dataType";
 
 export const metadata: Metadata = {
   title: "Use phase",
@@ -15,13 +16,6 @@ export const metadata: Metadata = {
 };
 const subSection = "use";
 
-type ResObj = {
-  id: string;
-  dateOfProduction: Date;
-  name: string;
-  mixture: string;
-  producer: string;
-};
 // Asynchronously fetch data
 async function getEntity(id: string) {
   const res = await fetch(process.env.URL + `/api/entity/${subSection}/${id}`, {
@@ -56,7 +50,7 @@ export default async function specificOverview({
   if (session?.user?.role === "admin") {
     isAdmin = true;
   }
-  const entityInfo: ResObj = await getEntity(params.id);
+  const entityInfo: ResObj & testProp = await getEntity(params.id);
   const entityHistory = await getEntityHistory(params.id);
   // console.log(entityInfo);
 

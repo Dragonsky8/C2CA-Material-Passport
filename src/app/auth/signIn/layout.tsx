@@ -1,5 +1,5 @@
 import ButtonAppBar from '@/component/navbar'
-import '../globals.css'
+import '../../globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Footer from '@/component/footer'

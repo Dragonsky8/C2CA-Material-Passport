@@ -13,7 +13,7 @@ export default function SearchBox() {
     }
     const [searchData, setSearchData] = useState('');
 
-    const handleChange = async (event: React.MouseEvent | React.KeyboardEvent) => {
+    const handleChange = async (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
             window.location.href = `/overview/${searchData}`
         }

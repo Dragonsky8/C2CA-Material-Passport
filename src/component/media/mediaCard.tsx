@@ -18,7 +18,7 @@ export default function MediaCard({title, cardText, link}: MediaCardProp) {
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         sx={{ height: 140 }}
-        image={`/${title}.jpeg`}
+        image={`/${title.toLowerCase()}.jpeg`}
         title="green iguana"
       />
       <CardContent>

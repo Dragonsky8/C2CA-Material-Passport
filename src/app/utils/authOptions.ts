@@ -17,10 +17,12 @@ export const authOptions: NextAuthOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
+        id: {label: "Id", type: 'number'},
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
         role: { label: "Role", type: "text" },
       },
+      // @ts-ignore TODO: Fix this weird bug
       async authorize(credentials, req) {
         // You need to provide your own logic here that takes the credentials
         // submitted and returns either a object representing a user or value
@@ -48,25 +50,11 @@ export const authOptions: NextAuthOptions = {
         if (user?.password == credentials?.password)
         {
           return {
+            id: user?.id,
             username: user?.userName,
             role: user?.role
           }
         }
-        // console.log(credentials?.username === "jan");
-        // if (credentials?.username === "hank") {
-        //   return {
-        //     id: "1",
-        //     username: "hank",
-        //     role: "admin",
-        //   };
-        // }
-        // if (credentials.username === "jan") {
-        //   return {
-        //     id: "1",
-        //     username: "viewer",
-        //     role: "viewer",
-        //   };
-        // }
         // Return null if user data could not be retrieved
         return null;
       },

@@ -62,7 +62,7 @@ export default function AddPage() {
     if (!res.ok) {
       throw new Error("hellluup");
     }
-    window.location.href = `/overview`;
+    window.location.href = res.url;
   };
   return (
     <CardBody>

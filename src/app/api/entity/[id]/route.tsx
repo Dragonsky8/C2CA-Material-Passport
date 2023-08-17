@@ -60,11 +60,8 @@ export async function POST(request: Request) {
       }
     })
 
-    // Return status if everything succeeded
-    return new NextResponse(JSON.stringify("good"), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    // Return redicrect url if everything succeeded
+    return NextResponse.redirect(new URL(`/overview/${res.id}`, request.url));
   } catch (e: any) {
     // It failed to update
     console.log("update failed", e);

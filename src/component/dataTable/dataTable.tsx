@@ -165,7 +165,7 @@ export default function BasicTable({
         >
           {Object.keys(props).map((key) => {
             // Check and ensure that some fields remain uneditable, Use a list checker or something
-            if (key === "id") {
+            if (key === "id" || key === 'dateOfProduction') {
               return (
                 <Box>
                   <TextField

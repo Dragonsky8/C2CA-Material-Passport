@@ -103,9 +103,6 @@ export default function AddPage() {
           <Button variant="contained" onClick={handleChange}>
             Add!
           </Button>
-          <Button variant="contained" onClick={handleSubmit}>
-            TestForm
-          </Button>
         </Box>
       </>
     </CardBody>

@@ -20,21 +20,45 @@ model Material {
   materialType     String
   MaterialVersion  MaterialVersion[]
 
-  production    Production[]
-  recyclingData Recycle?     @relation("recyclingData")
-  buildData     Build[]
-  useData       Use[]
-  rawMaterial   RawMaterial? @relation("rawMaterial")
+  rawMaterial RawMaterial? @relation("rawMaterial")
+
+  productLink MaterialProductLink[]
 
   // historyData Material[] @relation("linkToNewRecycling" ,fields: [id], references: [id])
 
   @@schema("public")
 }
 
+// This model links the many-to-many relationship
+model MaterialProductLink {
+  linkId Int @id @unique @default(autoincrement())
+
+  material   Material @relation(fields: [materialId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id])
+  materialId Int
+  productId  Int
+
+  @@schema("public")
+}
+
+model Product {
+  id   Int    @id @unique @default(autoincrement())
+  name String
+
+  production      Production[]
+  recyclingData   Recycle?              @relation("recyclingData")
+  buildData       Build[]
+  useData         Use[]
+  // Used to fetch the materialId from the rawMaterial side
+  rawMaterialLink MaterialProductLink[]
+
+  @@schema("public")
+}
+
 model RawMaterial {
-  id   Int    @id @unique
-  sand String?
-  producer String?
+  id               Int      @id @unique
+  sand             String?
+  producer         String?
   dateOfProduction DateTime
 
   materialParent Material? @relation("rawMaterial", fields: [id], references: [id])
@@ -56,38 +80,38 @@ model Production {
   stability           String?
   resistance          String?
 
-  materialParent Material? @relation(fields: [id], references: [id])
+  productParent Product? @relation(fields: [id], references: [id]) // This links the product page to the RFID in Material
 
   @@schema("public")
 }
 
 model Build {
-  id          Int    @id @unique
+  id          Int     @id @unique
   name        String?
   constructor String?
 
-  materialParent Material? @relation(fields: [id], references: [id])
+  productParent Product? @relation(fields: [id], references: [id])
 
   @@schema("public")
 }
 
 model Use {
-  id           Int      @id @unique
+  id           Int       @id @unique
   name         String?
   location     String?
   buildingDate DateTime?
 
-  materialParent Material? @relation(fields: [id], references: [id])
+  productParent Product? @relation(fields: [id], references: [id])
 
   @@schema("public")
 }
 
 model Recycle {
-  id               Int    @id @unique
+  id               Int     @id @unique
   name             String?
   recyclingCompany String?
 
-  materialParent Material? @relation("recyclingData", fields: [id], references: [id])
+  productParent Product? @relation("recyclingData", fields: [id], references: [id])
   // nextLocation   Material[]  // This should store the ID of the new recycled product or products
 
   @@schema("public")
@@ -126,7 +150,7 @@ model MaterialVersion {
   dateOfProduction DateTime
   name             String
   producer         String
-  
+  materialType     String
 
   material Material? @relation(fields: [versionMaterialId], references: [id])
   user     Users?    @relation(fields: [versionUserId], references: [id])

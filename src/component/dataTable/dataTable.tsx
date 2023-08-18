@@ -60,7 +60,7 @@ export default function BasicTable({
       return;
     }
     console.log(subSection)
-    const bodyPatch = { id: props.id, ...inputValues };
+    const bodyPatch = { userId: 1 ,data:{ id: props.id, ...inputValues }};
     const res = await fetch(`/api/entity/${subSection}/${2}`, {
       method: "PATCH",
       headers: {

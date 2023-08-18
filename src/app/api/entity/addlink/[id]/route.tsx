@@ -2,24 +2,23 @@ import { NextResponse } from "next/server";
 import prisma from "../../../../../../lib/prisma";
 import { forUser } from "../../../../../../lib/prisma";
 
-// Fetch one specific entity production info
+// Fetch linked rawMaterial entities, based on productId
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   const identifier = params.id; // 'a', 'b', or 'c'
-//   const res = await prisma.material.findFirst({
-//     where: { id: parseInt(identifier) },
-//   });
-  const res = await prisma.production.findUnique({
-    where: {id: parseInt(identifier)}
-  })
+
+  const res = await prisma.materialProductLink.findMany({
+    where: { productId: parseInt(identifier) },
+  });
+  // Returns list of all rawMaterial entries linked to specific productId
   // console.log(res)
   return NextResponse.json(res);
   // return NextResponse.json(JSON.stringify({ test: `${identifier}` }));
 }
 
-export async function PATCH(
+export async function POST(
   request: Request,
   {
     body,
@@ -34,14 +33,20 @@ export async function PATCH(
 ) {
   const req = await request.json();
   const data = req.data;
-  const userId = req.userId;  const dbId = parseInt(data.id);
-  // Try to add new entity. Catch the error when it fails
+  const userId = req.userId;
+//   const dbId = parseInt(data.id);
+  // data should be in format:
+  // {materialId: [a, b, c], productId: x}?
+  console.log(data);
+  // Try to add new link between materialId and productId. Catch the error when it fails
   try {
     // const user = await prisma.users.findFirstOrThrow()
-    const userPrisma = prisma.$extends(forUser(userId))
-    const res = await userPrisma.production.update({
-      where: { id: dbId },
-      data: data,
+    const userPrisma = prisma.$extends(forUser(userId));
+    const res = await userPrisma.materialProductLink.create({
+      data: {
+        materialId: 1,
+        productId: 1,
+      },
     });
     return new NextResponse(JSON.stringify("good"), {
       status: 200,

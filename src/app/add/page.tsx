@@ -1,10 +1,19 @@
 "use client";
 import MediaCard from "@/component/media/mediaCard";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import styles from "../page.module.css";
 import SearchBox from "@/component/searchBox/searchBox";
 import CardBody from "@/component/cardBody/cardBody";
 import { ChangeEventHandler, useState } from "react";
+import { getSession, useSession } from "next-auth/react";
 
 interface FieldType {
   name: string;
@@ -22,6 +31,9 @@ interface materialProperties {
  * @returns Add page where you can Add new material blocks
  */
 export default function AddPage() {
+  // Get the current user cookie data
+  const { data: session, status } = useSession();
+  const userId = session?.user.id;
   // Object of FieldTypes
   const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
   // Store the input fields in the inputValues state
@@ -44,7 +56,7 @@ export default function AddPage() {
       ...prevState,
       [fieldInfo.name]: fieldInfo.value,
     }));
-  }
+  };
   const handleSubmit = () => {
     for (let entry in inputValues) {
       console.log(inputValues[entry]);
@@ -52,12 +64,46 @@ export default function AddPage() {
   };
   const handleChange = async (event: React.MouseEvent) => {
     // window.location.href = `/api/entity/${searchData}`;
+    const bodyPatch = { userId: session?.user.id, data: inputValues };
+
     const res = await fetch(`/api/entity/${2}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(inputValues),
+      body: JSON.stringify(bodyPatch),
+    });
+    if (!res.ok) {
+      throw new Error("hellluup");
+    }
+    window.location.href = res.url;
+  };
+  const handleProductChange = async (event: React.MouseEvent) => {
+    // window.location.href = `/api/entity/${searchData}`;
+    const bodyPatch = { userId: 1, data: inputValues };
+
+    const res = await fetch(`/api/entity/product/${2}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyPatch),
+    });
+    if (!res.ok) {
+      throw new Error("hellluup");
+    }
+    window.location.href = res.url;
+  };
+  const handleLinkChange = async (event: React.MouseEvent) => {
+    // window.location.href = `/api/entity/${searchData}`;
+    const bodyPatch = { userId: 1, data: inputValues };
+
+    const res = await fetch(`/api/entity/addlink/${2}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(bodyPatch),
     });
     if (!res.ok) {
       throw new Error("hellluup");
@@ -89,19 +135,25 @@ export default function AddPage() {
           />
           <FormControl fullWidth>
             <InputLabel id="test">MaterialType</InputLabel>
-            <Select
-              id="test"
-              label="Age"
-              onChange={handleMaterialChange}
-            >
-              <MenuItem id="materialType" value={"Raw"}>Raw</MenuItem>
-              <MenuItem id="materialType" value={"Processed"}>Processed</MenuItem>
+            <Select id="test" label="Age" onChange={handleMaterialChange}>
+              <MenuItem id="materialType" value={"Raw"}>
+                Raw
+              </MenuItem>
+              <MenuItem id="materialType" value={"Processed"}>
+                Processed
+              </MenuItem>
             </Select>
           </FormControl>
         </Box>
         <Box>
           <Button variant="contained" onClick={handleChange}>
             Add!
+          </Button>
+          <Button variant="contained" onClick={handleProductChange}>
+            Add product
+          </Button>
+          <Button variant="contained" onClick={handleLinkChange}>
+            Add new link
           </Button>
         </Box>
       </>

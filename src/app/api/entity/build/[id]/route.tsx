@@ -32,12 +32,15 @@ export async function PATCH(
     };
   }
 ) {
-  const data = await request.json();
+  const req = await request.json();
+  const data = req.data;
+  const userId = req.userId;
   const dbId = parseInt(data.id);
+  console.log(data)
   // Try to add new entity. Catch the error when it fails
   try {
-    const user = await prisma.users.findFirstOrThrow()
-    const userPrisma = prisma.$extends(forUser(user.id))
+    // const user = await prisma.users.findFirstOrThrow()
+    const userPrisma = prisma.$extends(forUser(userId))
     const res = await userPrisma.build.update({
       where: { id: dbId },
       data: data,

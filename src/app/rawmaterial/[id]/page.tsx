@@ -74,10 +74,12 @@ export default async function specificOverview({
             flexGrow: 2,
           }}
         >
-          <Box sx={{
-            display: 'flex',
-            flexGrow: 0
-          }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 0,
+            }}
+          >
             <Button href={`/overview/${params.id}`}> Back to Overview</Button>
           </Box>
           Hello. you are viewing properties of {entityInfo["name"]}

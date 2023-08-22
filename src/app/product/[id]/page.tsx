@@ -90,8 +90,14 @@ export default async function specificOverview({
             flexGrow: 2,
           }}
         >
-          <Button href={`/overview/${params.id}`}> Back to Overview</Button>
-
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 0,
+            }}
+          >
+            <Button href={`/overview/${params.id}`}> Back to Overview</Button>
+          </Box>
           <BasicTable props={entityInfo} editable={isAdmin} />
           <Box
             sx={{

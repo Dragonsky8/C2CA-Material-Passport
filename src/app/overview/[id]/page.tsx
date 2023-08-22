@@ -23,7 +23,7 @@ interface pageType {
 const pageText: pageType = {
   RawMaterial: "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
                 "information about the raw materials, or the complete concrete production process.",
-  Product: "Information on the production process and material?",
+  Product: "Information on the production process and where this raw material is being used",
 
 };
 const pageTextRaw: pageType = {

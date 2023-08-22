@@ -80,8 +80,8 @@ export default async function specificOverview({
               flexGrow: 0,
             }}
           >
-            <Button href={`/overview/${params.id}`}> Back to Overview</Button>
-          </Box>{" "}
+            <Button href={`/product/${params.id}`}> Back to Product Page</Button>
+          </Box>
           Hello. you are viewing properties of {entityInfo["name"]}
           <BasicTable
             props={entityInfo}

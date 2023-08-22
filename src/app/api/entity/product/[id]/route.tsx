@@ -12,10 +12,6 @@ export async function GET(
   const res = await prisma.product.findFirst({
     where: { id: parseInt(identifier) },
   });
-  // const res2 = await prisma.materialVersion.findMany({
-  //   where: {versionMaterialId: parseInt(identifier)}
-  // })
-  // console.log(res)
   return NextResponse.json(res);
   // return NextResponse.json(JSON.stringify({ test: `${identifier}` }));
 }

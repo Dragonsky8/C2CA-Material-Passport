@@ -89,6 +89,14 @@ export default async function rawMaterialList({
           {entityInfo.map((entry) => {
             return (<MediaCard title={entry.name} cardText={entry.producer} link={`/overview/${entry.id}`} useDefaultImage />)
           })}
+           <Box
+            sx={{
+              display: "flex",
+              flexGrow: 0,
+            }}
+          >
+          <Button variant="contained" href={`/product/${params.id}/rawmaterial/addmaterial`}> Add new materials</Button>
+          </Box>
         </Box>
         <Box
           sx={{

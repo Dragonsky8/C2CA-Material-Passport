@@ -12,16 +12,16 @@ export async function GET(
   const res = await prisma.materialProductLink.findMany({
     where: { productId: parseInt(identifier) },
   });
-  var materialArray = new Array()
-  res.map( (entry) => {
-    materialArray.push(entry.materialId)
-  })
+  var materialArray = new Array();
+  res.map((entry) => {
+    materialArray.push(entry.materialId);
+  });
 
   const materialList = await prisma.material.findMany({
     where: {
-      id: {in: materialArray}
-    }
-  })
+      id: { in: materialArray },
+    },
+  });
 
   // Returns list of all rawMaterial entries linked to specific productId
   // console.log(materialList)
@@ -29,23 +29,12 @@ export async function GET(
   // return NextResponse.json(JSON.stringify({ test: `${identifier}` }));
 }
 
-export async function POST(
-  request: Request,
-  {
-    body,
-  }: {
-    body: {
-      id: number;
-      name: String;
-      producer: String;
-      mixture: String;
-    };
-  }
-) {
+export async function POST(request: Request) {
   const req = await request.json();
   const data = req.data;
   const userId = req.userId;
-//   const dbId = parseInt(data.id);
+  const linkData = req.link;
+  //   const dbId = parseInt(data.id);
   // data should be in format:
   // {materialId: [a, b, c], productId: x}?
   console.log(data);
@@ -53,16 +42,25 @@ export async function POST(
   try {
     // const user = await prisma.users.findFirstOrThrow()
     const userPrisma = prisma.$extends(forUser(userId));
-    const res = await userPrisma.materialProductLink.create({
-      data: {
-        materialId: 1,
-        productId: 1,
-      },
-    });
-    return new NextResponse(JSON.stringify("good"), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    // const res = await userPrisma.materialProductLink.create({
+    //   data: {
+    //     materialId: 1,
+    //     productId: data.id,
+    //   },
+    // });
+    // Loop over array of new materials and add them
+    Object.values(linkData).map( async (linkValue) => {
+      await userPrisma.materialProductLink.create({
+          data: {
+             // @ts-ignore 
+            materialId: parseInt(linkValue),
+            productId: parseInt(data.id),
+          },
+        });
+      })
+
+    // Return redicrect url if everything succeeded
+    return NextResponse.redirect(new URL(`/product/${data.id}/rawmaterial`, request.url));
   } catch (e: any) {
     // It failed to update
     console.log("update failed", e);

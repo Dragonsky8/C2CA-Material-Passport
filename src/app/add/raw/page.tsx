@@ -47,21 +47,18 @@ export default function AddPage() {
       [fieldInfo.name]: fieldInfo.value,
     }));
   };
-  const handleMaterialChange = (e: any) => {
-    const fieldInfo: FieldType = {
-      name: "materialType",
-      value: e.target.value,
-    };
-    setInputValues((prevState) => ({
-      ...prevState,
-      [fieldInfo.name]: fieldInfo.value,
-    }));
-  };
-  const handleSubmit = () => {
-    for (let entry in inputValues) {
-      console.log(inputValues[entry]);
-    }
-  };
+  // Material selection handler
+//   const handleMaterialChange = (e: any) => {
+//     const fieldInfo: FieldType = {
+//       name: "materialType",
+//       value: e.target.value,
+//     };
+//     setInputValues((prevState) => ({
+//       ...prevState,
+//       [fieldInfo.name]: fieldInfo.value,
+//     }));
+//   };
+
   const handleChange = async (event: React.MouseEvent) => {
     // window.location.href = `/api/entity/${searchData}`;
     const bodyPatch = { userId: session?.user.id, data: inputValues };
@@ -79,10 +76,9 @@ export default function AddPage() {
     window.location.href = res.url;
   };
   const handleProductChange = async (event: React.MouseEvent) => {
-    // window.location.href = `/api/entity/${searchData}`;
+    // Add the userID to the POST request in backend
     const bodyPatch = { userId: 1, data: inputValues };
-
-    const res = await fetch(`/api/entity/product/${2}`, {
+    const res = await fetch(`/api/entity/${2}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +129,7 @@ export default function AddPage() {
             variant="filled"
             onChange={handleInputChange}
           />
-          <FormControl fullWidth>
+          {/* <FormControl fullWidth>
             <InputLabel id="test">MaterialType</InputLabel>
             <Select id="test" label="Age" onChange={handleMaterialChange}>
               <MenuItem id="materialType" value={"Raw"}>
@@ -143,7 +139,7 @@ export default function AddPage() {
                 Processed
               </MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
         </Box>
         <Box>
           <Button variant="contained" onClick={handleChange}>

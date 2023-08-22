@@ -8,6 +8,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import styles from "../page.module.css";
 import SearchBox from "@/component/searchBox/searchBox";
@@ -112,19 +113,36 @@ export default function AddPage() {
   };
   return (
     <CardBody>
-      <>
-        <MediaCard
-          title="Register Raw Material"
-          cardText="Register a new raw material product, such as sands, aggregates or cement"
-          link="/add/raw"
-        />
-        <MediaCard
-          title="Register Product"
-          cardText="Register a new production product, by scanning the raw material's RFID tags"
-          link="/add/product"
-        />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px",
+        }}
+      >
+        <Typography variant="h5">
+          Registering a new batch of raw materials, or a new production product
+        </Typography>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: "15px",
+
+        }}>
+          <MediaCard
+            title="Register Raw Material"
+            cardText="Register a new raw material product, such as sands, aggregates or cement"
+            link="/add/raw"
+          />
+          <MediaCard
+            title="Register Product"
+            cardText="Register a new production product, by scanning the raw material's RFID tags"
+            link="/add/product"
+          />
+        </Box>
+
         <Box>
-          <Button variant="contained" onClick={handleChange}>
+          {/* <Button variant="contained" onClick={handleChange}>
             Add!
           </Button>
           <Button variant="contained" onClick={handleProductChange}>
@@ -132,9 +150,9 @@ export default function AddPage() {
           </Button>
           <Button variant="contained" onClick={handleLinkChange}>
             Add new link
-          </Button>
+          </Button> */}
         </Box>
-      </>
+      </Box>
     </CardBody>
   );
 }

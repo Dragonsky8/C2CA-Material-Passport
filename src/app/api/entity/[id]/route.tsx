@@ -28,6 +28,8 @@ export async function POST(request: Request) {
 
   // Add production date
   data.dateOfProduction = new Date();
+  // Add materialType to Raw, as registering a new RFID is always Raw
+  data.materialType = "Raw"
   console.log(data)
   // Try to add new entity. Catch the error when it fails
   try {

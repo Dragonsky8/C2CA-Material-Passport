@@ -17,18 +17,14 @@ export const metadata: Metadata = {
 
 interface pageType {
   RawMaterial: string;
-  Production?: string;
-  Build?: string;
-  Use?: string;
-  Recycle?: string;
+  Product?: string;
+
 }
 const pageText: pageType = {
   RawMaterial: "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
                 "information about the raw materials, or the complete concrete production process.",
-  Production: "Information on the production process and material?",
-  Build: "Information regarding construction, contractors and such and such",
-  Use: "Information regarding usage in building and state. To explore more, click",
-  Recycle: "Recycling process information and how demolition should be conducted",
+  Product: "Information on the production process and material?",
+
 };
 const pageTextRaw: pageType = {
   RawMaterial: "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
@@ -76,6 +72,7 @@ export default async function specificOverview({
   if (entityInfo.materialType === 'Raw') {
     materialPagetype = pageTextRaw
   }
+  console.log("param is", params.id)
 
   return (
     <CardBody>
@@ -114,7 +111,7 @@ export default async function specificOverview({
                 flexShrink: 1,
                 flexBasis: 0,
               }}> 
-              <MediaCard title={pageName} cardText={materialPagetype[pageName as keyof typeof materialPagetype] as string} link={`${params.id}/${pageName.toLowerCase()}`}/>
+              <MediaCard title={pageName} cardText={materialPagetype[pageName as keyof typeof materialPagetype] as string} link={`/${pageName.toLowerCase()}/${params.id}`}/>
               </Box>
             ))}
           </Box>

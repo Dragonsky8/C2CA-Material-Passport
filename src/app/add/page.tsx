@@ -113,38 +113,16 @@ export default function AddPage() {
   return (
     <CardBody>
       <>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            width: "40vw",
-          }}
-        >
-          <TextField
-            id="name"
-            label="Name"
-            variant="filled"
-            onChange={handleInputChange}
-          />
-          <TextField
-            id="producer"
-            label="Producer"
-            variant="filled"
-            onChange={handleInputChange}
-          />
-          <FormControl fullWidth>
-            <InputLabel id="test">MaterialType</InputLabel>
-            <Select id="test" label="Age" onChange={handleMaterialChange}>
-              <MenuItem id="materialType" value={"Raw"}>
-                Raw
-              </MenuItem>
-              <MenuItem id="materialType" value={"Processed"}>
-                Processed
-              </MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+        <MediaCard
+          title="Register Raw Material"
+          cardText="Register a new raw material product, such as sands, aggregates or cement"
+          link="/add/raw"
+        />
+        <MediaCard
+          title="Register Product"
+          cardText="Register a new production product, by scanning the raw material's RFID tags"
+          link="/add/product"
+        />
         <Box>
           <Button variant="contained" onClick={handleChange}>
             Add!

@@ -1,5 +1,5 @@
 import MediaCard from "@/component/media/mediaCard";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CardMedia, Typography } from "@mui/material";
 import styles from "../page.module.css";
 import SearchBox from "@/component/searchBox/searchBox";
 import CardBody from "@/component/cardBody/cardBody";
@@ -8,13 +8,7 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
 import NestedList from "@/component/nestedList/nestedList";
-import testProp, { ResObj } from "@/types/dataType";
-
-export const metadata: Metadata = {
-  title: "Use phase",
-  description: "Usage information",
-};
-const subSection = "use";
+import testProp, { MaterialProps, ResObj } from "@/types/dataType";
 
 // Asynchronously fetch data
 async function getEntity(id: string) {
@@ -35,6 +29,13 @@ async function getEntityHistory(id: string) {
   }
   return res.json();
 }
+
+export const metadata: Metadata = {
+  title: "Raw Materials",
+  description: "Usage information",
+};
+const subSection = "rawMaterialList";
+
 /**
  *
  * @returns Page to see what materials are used in this product
@@ -50,7 +51,7 @@ export default async function rawMaterialList({
   if (session?.user?.role === "admin") {
     isAdmin = true;
   }
-  const entityInfo: ResObj & testProp = await getEntity(params.id);
+  const entityInfo: [ResObj & testProp] = await getEntity(params.id);
   const entityHistory = await getEntityHistory(params.id);
   console.log(entityInfo);
 
@@ -72,20 +73,22 @@ export default async function rawMaterialList({
             gap: "1vh",
             minWidth: "30vw",
             flexGrow: 2,
-          }}>
+          }}
+        >
           <Box
             sx={{
               display: "flex",
               flexGrow: 0,
-            }}>
-            <Button href={`/product/${params.id}`}> Back to Product Page</Button>
-          </Box>{" "}
-          Hello. you are viewing properties of {entityInfo["name"]}
-          <BasicTable
-            props={entityInfo}
-            editable={isAdmin}
-            subSection={subSection}
-          />
+            }}
+          >
+            <Button href={`/product/${params.id}`}>
+              Back to Product Page
+            </Button>
+          </Box>
+          Showing all used materials in product X
+          {entityInfo.map((entry) => {
+            return (<MediaCard title={entry.name} cardText={entry.producer} link={`/overview/${entry.id}`} useDefaultImage />)
+          })}
         </Box>
         <Box
           sx={{

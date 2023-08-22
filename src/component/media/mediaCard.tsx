@@ -9,16 +9,22 @@ import Typography from '@mui/material/Typography';
 interface MediaCardProp {
   title: string,
   cardText: string,
-  link: string
+  link: string,
+  useDefaultImage?: boolean
 
 }
 
-export default function MediaCard({title, cardText, link}: MediaCardProp) {
+export default function MediaCard({title, cardText, link, useDefaultImage=false}: MediaCardProp) {
+
+  var imgAddress = `/${title.toLowerCase()}.jpeg`
+  if (useDefaultImage) {
+    imgAddress = '/default.jpeg'
+  }
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         sx={{ height: 140 }}
-        image={`/${title.toLowerCase()}.jpeg`}
+        image={imgAddress}
         title="green iguana"
       />
       <CardContent>

@@ -1,16 +1,23 @@
-interface BuildProps {
+export interface BuildProps {
   id: string;
   name: string;
   constructor: string;
 }
 
-interface RawMaterialProps {
+export interface RawMaterialProps {
   id: number;
   sand: string;
   dateOfProduction: Date;
 }
+export interface MaterialProps {
+  id              : int      
+  dateOfProduction: string
+  name             :string
+  producer         :string
+  materialType     :string
+}
 
-interface ProductionProps {
+export interface ProductionProps {
   name: string;
   // Dimensions
   weight: number;
@@ -32,6 +39,6 @@ export type ResObj = {
     producer: string;
   }
 
-type testProp = BuildProps | RawMaterialProps | ProductionProps;
+type testProp = BuildProps | RawMaterialProps | ProductionProps | MaterialProps;
 
 export default testProp;

@@ -31,7 +31,7 @@ const pageText: pageType = {
 
 // Asynchronously fetch data
 async function getEntity(id: string) {
-  const res = await fetch(process.env.URL + `/api/entity/${id}`, {
+  const res = await fetch(process.env.URL + `/api/entity/product/${id}`, {
     cache: "no-store",
   });
   if (!res.ok) {

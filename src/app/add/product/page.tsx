@@ -13,7 +13,7 @@ import {
 import styles from "../page.module.css";
 import SearchBox from "@/component/searchBox/searchBox";
 import CardBody from "@/component/cardBody/cardBody";
-import { ChangeEventHandler, useState } from "react";
+import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
 import { getSession, useSession } from "next-auth/react";
 
 interface FieldType {
@@ -37,6 +37,7 @@ export default function AddPage() {
   const userId = session?.user.id;
   // Object of FieldTypes
   const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
+  const [productInfo, setProductInfo] = useState<{ [x: string]: string }>();
   // Store the input fields in the inputValues state
   const handleInputChange = (e: any) => {
     const fieldInfo: FieldType = {
@@ -48,40 +49,22 @@ export default function AddPage() {
       [fieldInfo.name]: fieldInfo.value,
     }));
   };
-  const handleMaterialChange = (e: any) => {
+
+  // Store the name seperately
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fieldInfo: FieldType = {
-      name: "materialType",
-      value: e.target.value,
+      name: e.currentTarget.id,
+      value: e.currentTarget.value,
     };
-    setInputValues((prevState) => ({
+    setProductInfo((prevState) => ({
       ...prevState,
       [fieldInfo.name]: fieldInfo.value,
     }));
-  };
-  const handleSubmit = () => {
-    for (let entry in inputValues) {
-      console.log(inputValues[entry]);
-    }
-  };
-  const handleChange = async (event: React.MouseEvent) => {
-    // window.location.href = `/api/entity/${searchData}`;
-    const bodyPatch = { userId: session?.user.id, data: inputValues };
+  }
 
-    const res = await fetch(`/api/entity/${2}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bodyPatch),
-    });
-    if (!res.ok) {
-      throw new Error("hellluup");
-    }
-    window.location.href = res.url;
-  };
   const handleProductChange = async (event: React.MouseEvent) => {
     // window.location.href = `/api/entity/${searchData}`;
-    const bodyPatch = { userId: 1, data: inputValues };
+    const bodyPatch = { userId: 1, data: productInfo, link: inputValues };
 
     const res = await fetch(`/api/entity/product/${2}`, {
       method: "POST",
@@ -126,7 +109,13 @@ export default function AddPage() {
           <Typography variant="h6">
             Create a new product, by scanning the raw material ID tags
           </Typography>
-
+          <TextField
+            id="name"
+            label="Name of the product"
+            variant="filled"
+            onChange={handleNameChange}
+            type="text"
+          />
           <TextField
             id="rawMaterials1"
             label="RawMaterials1"
@@ -150,9 +139,9 @@ export default function AddPage() {
           <Button variant="contained" onClick={handleProductChange}>
             Add product
           </Button>
-          <Button variant="contained" onClick={handleLinkChange}>
+          {/* <Button variant="contained" onClick={handleLinkChange}>
             Add new link
-          </Button>
+          </Button> */}
         </Box>
       </>
     </CardBody>

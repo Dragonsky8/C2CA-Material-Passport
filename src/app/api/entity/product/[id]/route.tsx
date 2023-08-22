@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../../../../lib/prisma";
 import { forUser } from "../../../../../../lib/prisma";
+import { link } from "fs";
 
 // Fetch one specific entity info
 export async function GET(
@@ -8,7 +9,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const identifier = params.id; // 'a', 'b', or 'c'
-  const res = await prisma.material.findFirst({
+  const res = await prisma.product.findFirst({
     where: { id: parseInt(identifier) },
   });
   // const res2 = await prisma.materialVersion.findMany({
@@ -22,28 +23,23 @@ export async function GET(
 // Create a new complete material page
 export async function POST(request: Request) {
   const req = await request.json();
-  const data = {name: "tank"};
-  const userId = req.userId;  
+  const data = req.data
+  const userId = req.userId;
+  const linkData: {} = req.link  
   console.log(userId)
 
   // Add production date
 //   data.dateOfProduction = new Date();
-  console.log(data)
+  console.log(req)
   // Try to add new entity. Catch the error when it fails
   try {
-    // const user = await prisma.users.findFirstOrThrow()
     const userPrisma = prisma.$extends(forUser(userId))
     const res = await userPrisma.product.create({
       data: data,
     });
     console.log("res is giving id: ", res.id)
+
     // create additional entries in other categories
-    // await userPrisma.rawMaterial.create({
-    //   data: {
-    //     id: res.id,
-    //     dateOfProduction: res.dateOfProduction
-    //   }
-    // })
     await userPrisma.production.create({
       data: {
         id: res.id
@@ -65,8 +61,19 @@ export async function POST(request: Request) {
       }
     })
 
+    // Once done with subPages, create MaterialProductLink entry to link raw material + product
+    Object.values(linkData).map( async (linkValue) => {
+    await userPrisma.materialProductLink.create({
+        data: {
+           // @ts-ignore 
+          materialId: parseInt(linkValue),
+          productId: res.id,
+        },
+      });
+    })
+
     // Return redicrect url if everything succeeded
-    return NextResponse.redirect(new URL(`/overview/${res.id}`, request.url));
+    return NextResponse.redirect(new URL(`/product/${res.id}`, request.url));
   } catch (e: any) {
     // It failed to update
     console.log("update failed", e);
@@ -98,7 +105,7 @@ export async function PATCH(
   try {
     // const user = await prisma.users.findFirst(userId)
     const userPrisma = prisma.$extends(forUser(userId))
-    const res = await userPrisma.material.update({
+    const res = await userPrisma.product.update({
       where: { id: dbId },
       data: data,
     });

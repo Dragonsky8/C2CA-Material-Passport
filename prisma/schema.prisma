@@ -56,10 +56,43 @@ model Product {
 }
 
 model RawMaterial {
-  id               Int      @id @unique
-  sand             String?
-  producer         String?
-  dateOfProduction DateTime
+  id                           Int     @id @unique
+  particleSize                 String?
+  grading                      String?
+  tolerance                    String?
+  granularShape                String?
+  grainShape                   String?
+  shellContent                 String?
+  grainDensity                 String?
+  amountFineParts              String?
+  qualityFineParts             String?
+  roundAndBrokenPieces         String?
+  resistanceToCrushing         String?
+  waterAbsorption              String?
+  classification               String?
+  chloride                     String?
+  contentOfAcidSolubleSulfate  String?
+  contentOfWaterSolubleSulfate String?
+  totalSulfur                  String?
+  affectBindingTime            String?
+
+  humusOrOrganicMatterContent String?
+  AlkaliSilicaActivity        String?
+  resistanceToWear            String?
+  emissionOfRadioactivity     String?
+  leachingOfHeavyMetals       String?
+  Asbestos                    String?
+  ChimicalComposition         String?
+  leachingAnions              String?
+  freezeThawSensitivity       String?
+
+  // Ultra-fine data
+
+  fallThrough2mm                String?
+  fallThrough0125mm             String?
+  fallThrough0063mm             String?
+  vormvastheid                  String?
+  emissionOfHazardousSubstances String?
 
   materialParent Material? @relation("rawMaterial", fields: [id], references: [id])
 

@@ -1,3 +1,5 @@
+import { AggregatesProps, UltraFinesProps } from "./rawMaterialType";
+
 export interface BuildProps {
   id: string;
   name: string;
@@ -39,6 +41,6 @@ export type ResObj = {
     producer: string;
   }
 
-type testProp = BuildProps | RawMaterialProps | ProductionProps | MaterialProps;
+type testProp = BuildProps | RawMaterialProps | ProductionProps | MaterialProps | AggregatesProps | UltraFinesProps;
 
 export default testProp;

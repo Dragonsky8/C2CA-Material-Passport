@@ -194,11 +194,14 @@ export default function BasicTable({
                       defaultValue={props[key]}
                       onChange={handleMaterialChange}
                     >
-                      <MenuItem id="materialType" value={"Raw"}>
-                        Raw
+                      <MenuItem id="materialType" value={"Coarse Aggregates"}>
+                      Coarse Aggregates
                       </MenuItem>
-                      <MenuItem id="materialType" value={"Processed"}>
-                        Processed
+                      <MenuItem id="materialType" value={"Fine Aggregates"}>
+                      Fine Aggregates
+                      </MenuItem>
+                      <MenuItem id="materialType" value={"Ultra-fine Aggregates"}>
+                      Ultra-fine Aggregates
                       </MenuItem>
                     </Select>
                   </FormControl>

@@ -1,5 +1,5 @@
 import MediaCard from "@/component/media/mediaCard";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, CardMedia, Typography } from "@mui/material";
 import styles from "../page.module.css";
 import SearchBox from "@/component/searchBox/searchBox";
 import CardBody from "@/component/cardBody/cardBody";
@@ -8,17 +8,11 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
 import NestedList from "@/component/nestedList/nestedList";
-import testProp, { ResObj } from "@/types/dataType";
-
-export const metadata: Metadata = {
-  title: "Recycle",
-  description: "Recycle information",
-};
-const subSection = "recycle";
+import testProp, { MaterialProps, ResObj } from "@/types/dataType";
 
 // Asynchronously fetch data
 async function getEntity(id: string) {
-  const res = await fetch(process.env.URL + `/api/entity/${subSection}/${id}`, {
+  const res = await fetch(process.env.URL + `/api/entity/allproducts/${id}`, {
     cache: "no-store",
   });
   if (!res.ok) {
@@ -35,11 +29,18 @@ async function getEntityHistory(id: string) {
   }
   return res.json();
 }
+
+export const metadata: Metadata = {
+  title: "Product List",
+  description: "Usage information",
+};
+const subSection = "productList";
+
 /**
  *
- * @returns Overview page where you can search by RFID identifier
+ * @returns Page to see where this material is being used
  */
-export default async function specificOverview({
+export default async function productList({
   params,
 }: {
   params: { id: string };
@@ -50,9 +51,9 @@ export default async function specificOverview({
   if (session?.user?.role === "admin") {
     isAdmin = true;
   }
-  const entityInfo: ResObj & testProp = await getEntity(params.id);
+  const entityInfo: [ResObj & testProp] = await getEntity(params.id);
   const entityHistory = await getEntityHistory(params.id);
-  // console.log(entityInfo);
+  console.log(entityInfo);
 
   return (
     <CardBody>
@@ -64,7 +65,7 @@ export default async function specificOverview({
             minWidth: 200,
           }}
         >
-          <Button href={`/product/${params.id}`}> Back to Product Page</Button>
+          <Button href={`/overview/${params.id}`}>Back to Overview</Button>
           <SearchBox />
         </Box>
         <Box
@@ -82,12 +83,39 @@ export default async function specificOverview({
               flexGrow: 0,
             }}
           ></Box>
-          Hello. you are viewing properties of {entityInfo["name"]}
-          <BasicTable
-            props={entityInfo}
-            editable={isAdmin}
-            subSection={subSection}
-          />
+          <Typography variant="h5">
+            Showing all products that use material X{" "}
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "15px",
+              flexWrap: "wrap",
+              flexShrink: 2,
+            }}
+          >
+            {/* Render the sub-pages */}
+            {entityInfo.map((entry) => {
+              return (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexGrow: 1,
+                    flexShrink: 1,
+                    flexBasis: 0,
+                  }}
+                >
+                  <MediaCard
+                    title={entry.name}
+                    cardText="This product is used in location X, at building Z"
+                    link={`/product/${entry.id}`}
+                    useDefaultImage
+                  />
+                </Box>
+              );
+            })}
+          </Box>
         </Box>
         <Box
           sx={{

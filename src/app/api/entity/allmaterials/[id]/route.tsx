@@ -34,7 +34,6 @@ export async function POST(request: Request) {
   const data = req.data;
   const userId = req.userId;
   const linkData = req.link;
-  //   const dbId = parseInt(data.id);
   // data should be in format:
   // {materialId: [a, b, c], productId: x}?
   console.log(data);
@@ -42,12 +41,7 @@ export async function POST(request: Request) {
   try {
     // const user = await prisma.users.findFirstOrThrow()
     const userPrisma = prisma.$extends(forUser(userId));
-    // const res = await userPrisma.materialProductLink.create({
-    //   data: {
-    //     materialId: 1,
-    //     productId: data.id,
-    //   },
-    // });
+   
     // Loop over array of new materials and add them
     Object.values(linkData).map( async (linkValue) => {
       await userPrisma.materialProductLink.create({

@@ -62,9 +62,10 @@ export default async function rawMaterialList({
           sx={{
             display: "flex",
             flexDirection: "column",
-            minWidth: 200
+            minWidth: 200,
           }}
         >
+          <Button href={`/product/${params.id}`}>Back to Product Page</Button>
           <SearchBox />
         </Box>
         <Box
@@ -81,22 +82,31 @@ export default async function rawMaterialList({
               display: "flex",
               flexGrow: 0,
             }}
-          >
-            <Button href={`/product/${params.id}`}>
-              Back to Product Page
-            </Button>
-          </Box>
+          ></Box>
           Showing all used materials in product X
           {entityInfo.map((entry) => {
-            return (<MediaCard title={entry.name} cardText={entry.producer} link={`/overview/${entry.id}`} useDefaultImage />)
+            return (
+              <MediaCard
+                title={entry.name}
+                cardText={entry.producer}
+                link={`/overview/${entry.id}`}
+                useDefaultImage
+              />
+            );
           })}
-           <Box
+          <Box
             sx={{
               display: "flex",
               flexGrow: 0,
             }}
           >
-          <Button variant="contained" href={`/product/${params.id}/rawmaterial/addmaterial`}> Add new materials</Button>
+            <Button
+              variant="contained"
+              href={`/product/${params.id}/rawmaterial/addmaterial`}
+            >
+              {" "}
+              Add new materials
+            </Button>
           </Box>
         </Box>
         <Box

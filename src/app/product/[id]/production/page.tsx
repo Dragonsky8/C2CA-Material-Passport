@@ -60,10 +60,10 @@ export default async function specificOverview({
           sx={{
             display: "flex",
             flexDirection: "column",
-            minWidth: 200
-
+            minWidth: 200,
           }}
         >
+          <Button href={`/product/${params.id}`}> Back to Product Page</Button>
           <SearchBox />
         </Box>
         <Box
@@ -75,12 +75,12 @@ export default async function specificOverview({
             flexGrow: 2,
           }}
         >
-          <Box sx={{
-            display: 'flex',
-            flexGrow: 0
-          }}>
-            <Button href={`/product/${params.id}`}> Back to Product Page</Button>
-          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: 0,
+            }}
+          ></Box>
           Hello. you are viewing properties of {entityInfo["name"]}
           <BasicTable
             props={entityInfo}

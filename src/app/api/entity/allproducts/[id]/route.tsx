@@ -10,11 +10,20 @@ export async function GET(
   const identifier = params.id; // 'a', 'b', or 'c'
 
   const res = await prisma.materialProductLink.findMany({
-    where: { productId: parseInt(identifier) },
+    where: { materialId: parseInt(identifier) },
   });
   // Returns list of all rawMaterial entries linked to specific productId
-  // console.log(res)
-  return NextResponse.json(res);
+  var productArray = new Array();
+  res.map((entry) => {
+    productArray.push(entry.productId);
+  });
+
+  const productList = await prisma.product.findMany({
+    where: {
+      id: { in: productArray },
+    },
+  });
+  return NextResponse.json(productList);
   // return NextResponse.json(JSON.stringify({ test: `${identifier}` }));
 }
 

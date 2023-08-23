@@ -50,7 +50,7 @@ export default async function specificOverview({
   if (session?.user?.role === "admin") {
     isAdmin = true;
   }
-  const entityInfo: ResObj & testProp= await getEntity(params.id);
+  const entityInfo: ResObj & testProp = await getEntity(params.id);
   const entityHistory = await getEntityHistory(params.id);
   // console.log(entityInfo);
 
@@ -61,9 +61,10 @@ export default async function specificOverview({
           sx={{
             display: "flex",
             flexDirection: "column",
-            minWidth: 200
+            minWidth: 200,
           }}
         >
+          <Button href={`/product/${params.id}`}> Back to Product Page</Button>
           <SearchBox />
         </Box>
         <Box
@@ -80,9 +81,7 @@ export default async function specificOverview({
               display: "flex",
               flexGrow: 0,
             }}
-          >
-            <Button href={`/product/${params.id}`}> Back to Product Page</Button>
-          </Box>
+          ></Box>
           Hello. you are viewing properties of {entityInfo["name"]}
           <BasicTable
             props={entityInfo}

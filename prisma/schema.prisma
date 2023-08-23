@@ -91,7 +91,7 @@ model RawMaterial {
   fallThrough2mm                String?
   fallThrough0125mm             String?
   fallThrough0063mm             String?
-  vormvastheid                  String?
+  vormVastheid                  String?
   emissionOfHazardousSubstances String?
 
   materialParent Material? @relation("rawMaterial", fields: [id], references: [id])

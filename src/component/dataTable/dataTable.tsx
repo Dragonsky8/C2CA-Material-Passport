@@ -147,8 +147,7 @@ export default function BasicTable({
                     justifyContent: "center",
                   }}
                 >
-                  {" "}
-                  {key.toString()}
+                  {splitCamelCase( key.toString())}
                 </Typography>
               </Box>
             );
@@ -213,7 +212,7 @@ export default function BasicTable({
                   <TextField
                     id={key}
                     disabled={!isEditable}
-                    label={key.toString()}
+                    label={splitCamelCase( key.toString())}
                     type={typeof(key)}
                     defaultValue={props[key as keyof typeof props]}
                     sx={{
@@ -230,4 +229,28 @@ export default function BasicTable({
       </Box>
     </Box>
   );
+}
+/**
+ * Splits a camelCase or PascalCase word into individual words separated by spaces. 
+ * @param {Object} word
+ * @returns {String}
+ */
+function splitCamelCase(word: string | any[]) {
+	var output, i, l, capRe = /[A-Z]/;
+	if (typeof(word) !== "string") {
+		throw new Error("The \"word\" parameter must be a string.");
+	}
+	output = [];
+	for (i = 0, l = word.length; i < l; i += 1) {
+		if (i === 0) {
+			output.push(word[i].toUpperCase());
+		}
+		else {
+			if (i > 0 && capRe.test(word[i])) {
+				output.push(" ");
+			}
+			output.push(word[i]);
+		}
+	}
+	return output.join("");
 }

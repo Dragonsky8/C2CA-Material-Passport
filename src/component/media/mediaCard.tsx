@@ -21,7 +21,7 @@ export default function MediaCard({title, cardText, link, useDefaultImage=false}
     imgAddress = '/default.jpeg'
   }
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, minWidth: 200 }}>
       <CardMedia
         sx={{ height: 140 }}
         image={imgAddress}

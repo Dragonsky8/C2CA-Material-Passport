@@ -62,6 +62,7 @@ export default async function rawMaterialList({
           sx={{
             display: "flex",
             flexDirection: "column",
+            minWidth: 200
           }}
         >
           <SearchBox />

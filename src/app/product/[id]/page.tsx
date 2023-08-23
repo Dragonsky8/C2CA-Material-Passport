@@ -24,7 +24,8 @@ interface pageType {
   Recycle?: string;
 }
 const pageText: pageType = {
-  RawMaterial: "Information on the raw materials used in this product. This page will show a list of all the registered products ",
+  RawMaterial:
+    "Information on the raw materials used in this product. This page will show a list of all the registered products ",
   Production: "Information on the production process and material?",
   Build: "Information regarding construction, contractors and such and such",
   Use: "Information regarding usage in building and state. To explore more, click",
@@ -80,8 +81,11 @@ export default async function specificOverview({
           sx={{
             display: "flex",
             flexDirection: "column",
+            minWidth: 200
           }}
         >
+          <Button href={`/overview/${params.id}`}> Back to Overview</Button>
+
           <SearchBox />
         </Box>
         <Box
@@ -98,15 +102,19 @@ export default async function specificOverview({
               display: "flex",
               flexGrow: 0,
             }}
-          >
-            <Button href={`/overview/${params.id}`}> Back to Overview</Button>
-          </Box>
-          <BasicTable props={entityInfo} editable={isAdmin} subSection={subSection} />
+          ></Box>
+          <BasicTable
+            props={entityInfo}
+            editable={isAdmin}
+            subSection={subSection}
+          />
           <Box
             sx={{
               display: "flex",
               flexDirection: "row",
               gap: "15px",
+              flexWrap: 'wrap',
+              flexShrink: 2
             }}
           >
             {/* Render the sub-pages */}

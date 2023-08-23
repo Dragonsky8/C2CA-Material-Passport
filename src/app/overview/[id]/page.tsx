@@ -81,6 +81,7 @@ export default async function specificOverview({
           sx={{
             display: "flex",
             flexDirection: "column",
+            minWidth: 200
           }}
         >
           <SearchBox />

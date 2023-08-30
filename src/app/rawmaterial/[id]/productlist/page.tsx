@@ -12,7 +12,7 @@ import testProp, { MaterialProps, ResObj } from "@/types/dataType";
 
 // Asynchronously fetch data
 async function getEntity(id: string) {
-  const res = await fetch(process.env.URL + `/api/entity/allmaterials/${id}`, {
+  const res = await fetch(process.env.URL + `/api/entity/allproducts/${id}`, {
     cache: "no-store",
   });
   if (!res.ok) {
@@ -31,16 +31,16 @@ async function getEntityHistory(id: string) {
 }
 
 export const metadata: Metadata = {
-  title: "Raw Materials",
+  title: "Product List",
   description: "Usage information",
 };
-const subSection = "rawMaterialList";
+const subSection = "productList";
 
 /**
  *
- * @returns Page to see what materials are used in this product
+ * @returns Page to see where this material is being used
  */
-export default async function rawMaterialList({
+export default async function productList({
   params,
 }: {
   params: { id: string };
@@ -65,7 +65,7 @@ export default async function rawMaterialList({
             minWidth: 200,
           }}
         >
-          <Button href={`/product/${params.id}`}>Back to Product Page</Button>
+          <Button href={`/overview/${params.id}`}>Back to Overview</Button>
           <SearchBox />
         </Box>
         <Box
@@ -83,30 +83,38 @@ export default async function rawMaterialList({
               flexGrow: 0,
             }}
           ></Box>
-          Showing all used materials in product X
-          {entityInfo.map((entry) => {
-            return (
-              <MediaCard
-                title={entry.name}
-                cardText={entry.producer}
-                link={`/rawmaterial/${entry.id}`}
-                useDefaultImage
-              />
-            );
-          })}
+          <Typography variant="h5">
+            Showing all products that use material X{" "}
+          </Typography>
           <Box
             sx={{
               display: "flex",
-              flexGrow: 0,
+              flexDirection: "row",
+              gap: "15px",
+              flexWrap: "wrap",
+              flexShrink: 2,
             }}
           >
-            <Button
-              variant="contained"
-              href={`/product/${params.id}/rawmaterial/addmaterial`}
-            >
-              {" "}
-              Add new materials
-            </Button>
+            {/* Render the sub-pages */}
+            {entityInfo.map((entry) => {
+              return (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexGrow: 1,
+                    flexShrink: 1,
+                    flexBasis: 0,
+                  }}
+                >
+                  <MediaCard
+                    title={entry.name}
+                    cardText="This product is used in location X, at building Z"
+                    link={`/product/${entry.id}`}
+                    useDefaultImage
+                  />
+                </Box>
+              );
+            })}
           </Box>
         </Box>
         <Box

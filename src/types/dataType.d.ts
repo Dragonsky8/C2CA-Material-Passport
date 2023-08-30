@@ -1,3 +1,4 @@
+import internal from "stream";
 import { AggregatesProps, UltraFinesProps } from "./rawMaterialType";
 
 export interface BuildProps {
@@ -39,8 +40,16 @@ export type ResObj = {
     name: string;
     materialType: string;
     producer: string;
+    materialId?: int
+    productId?: int
   }
 
-type testProp = BuildProps | RawMaterialProps | ProductionProps | MaterialProps | AggregatesProps | UltraFinesProps;
+export interface MaterialProductLinkProp {
+  id: int
+  materialId: int
+  productId: int
+}
+
+type testProp = BuildProps | RawMaterialProps | ProductionProps | MaterialProps | AggregatesProps | UltraFinesProps | MaterialProductLinkProp;
 
 export default testProp;

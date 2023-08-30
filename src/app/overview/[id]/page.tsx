@@ -17,18 +17,19 @@ export const metadata: Metadata = {
 
 interface pageType {
   RawMaterial: string;
-  ProductList?: string;
-
+  Product?: string;
 }
 const pageText: pageType = {
-  RawMaterial: "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
-                "information about the raw materials, or the complete concrete production process.",
-  ProductList: "Information on the production process and where this raw material is being used",
-
+  RawMaterial:
+    "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
+    "information about the raw materials, or the complete concrete production process.",
+  Product:
+    "Information on the production process and where this RFID tag is currently in the production stage. This link will lead to the product page",
 };
 const pageTextRaw: pageType = {
-  RawMaterial: "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
-                "information about the raw materials, or the complete concrete production process.",
+  RawMaterial:
+    "Information on the raw materials. Depending on the type of the scanned RFID, this will only show " +
+    "information about the raw materials, or the complete concrete production process.",
 };
 // Asynchronously fetch data
 async function getEntity(id: string) {
@@ -68,9 +69,9 @@ export default async function specificOverview({
   const entityHistory = await getEntityHistory(params.id);
 
   // Set the variable to display only raw materials or all sub-pages
-  let materialPagetype = pageText
-  if (entityInfo.materialType === 'Raw') {
-    materialPagetype = pageTextRaw
+  let materialPagetype = pageText;
+  if (entityInfo.materialType === "Raw") {
+    materialPagetype = pageTextRaw;
   }
 
   return (
@@ -80,7 +81,7 @@ export default async function specificOverview({
           sx={{
             display: "flex",
             flexDirection: "column",
-            minWidth: 200
+            minWidth: 200,
           }}
         >
           <SearchBox />
@@ -94,7 +95,8 @@ export default async function specificOverview({
             flexGrow: 2,
           }}
         >
-          Hello. you are viewing {entityInfo["name"]}
+          Hello. you are viewing {entityInfo["name"]} and you are on the RFID
+          overview page
           <BasicTable props={entityInfo} editable={isAdmin} />
           <Box
             sx={{
@@ -104,16 +106,54 @@ export default async function specificOverview({
             }}
           >
             {/* Render the sub-pages */}
-            {Object.keys(materialPagetype).map((pageName: string) => (
-              <Box sx={{
-                display: 'flex',
+            {/* {Object.keys(materialPagetype).map((pageName: string) => (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexGrow: 1,
+                  flexShrink: 1,
+                  flexBasis: 0,
+                }}
+              >
+                <MediaCard
+                  title={pageName}
+                  cardText={
+                    materialPagetype[
+                      pageName as keyof typeof materialPagetype
+                    ] as string
+                  }
+                  link={`/${pageName.toLowerCase()}/${params.id}`}
+                />
+              </Box>
+            ))} */}
+            <Box
+              sx={{
+                display: "flex",
                 flexGrow: 1,
                 flexShrink: 1,
                 flexBasis: 0,
-              }}> 
-              <MediaCard title={pageName} cardText={materialPagetype[pageName as keyof typeof materialPagetype] as string} link={`/${pageName.toLowerCase()}/${params.id}`}/>
+              }}
+            >
+              <MediaCard
+                title="RawMaterial"
+                cardText={materialPagetype.RawMaterial as string}
+                link={`/rawmaterial/${entityInfo.materialId}`}
+              />
               </Box>
-            ))}
+            <Box
+              sx={{
+                display: "flex",
+                flexGrow: 1,
+                flexShrink: 1,
+                flexBasis: 0,
+              }}
+            >
+              <MediaCard
+                title="Product"
+                cardText={materialPagetype.Product as string}
+                link={`/product/${entityInfo.productId}`}
+              />
+            </Box>
           </Box>
         </Box>
         <Box

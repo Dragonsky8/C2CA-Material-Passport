@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import prisma from "../../../../../lib/prisma";
-import { forUser } from "../../../../../lib/prisma";
+import prisma from "../../../../../../lib/prisma";
+import { forUser } from "../../../../../../lib/prisma";
 
 // Fetch one specific entity info
 export async function GET(
@@ -8,8 +8,8 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   const identifier = params.id; // 'a', 'b', or 'c'
-  const res = await prisma.materialProductLink.findFirst({
-    where: { rfidId: parseInt(identifier) },
+  const res = await prisma.material.findFirst({
+    where: { id: parseInt(identifier) },
   });
   // const res2 = await prisma.materialVersion.findMany({
   //   where: {versionMaterialId: parseInt(identifier)}

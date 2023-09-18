@@ -80,7 +80,10 @@ export default function BasicTable({
     }
   }
   const editButton = () => {
-    if (isEditable) {
+    if (!editable) {
+      return 
+    }
+    else if (isEditable) {
       bgColor = "lightGray";
       return (
         <Button

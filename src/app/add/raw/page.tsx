@@ -145,12 +145,12 @@ export default function AddPage() {
           <Button variant="contained" onClick={handleChange}>
             Add!
           </Button>
-          <Button variant="contained" onClick={handleProductChange}>
+          {/* <Button variant="contained" onClick={handleProductChange}>
             Add product
           </Button>
           <Button variant="contained" onClick={handleLinkChange}>
             Add new link
-          </Button>
+          </Button> */}
         </Box>
       </>
     </CardBody>

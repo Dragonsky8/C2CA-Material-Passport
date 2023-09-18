@@ -6,6 +6,8 @@ import Footer from '@/component/footer'
 import { getServerSession } from 'next-auth'
 import { authOptions }  from '../utils/authOptions'
 import { redirect } from 'next/navigation'
+import styles from "../page.module.css";
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -31,7 +33,9 @@ export default async function RootLayout({
     <html lang="en">
         <body className={inter.className}>
           <ButtonAppBar/>
+          <main className={styles.main}>
           {children}
+          </main>
           <Footer/>
 
         </body>

@@ -1,9 +1,10 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   padding: 68px 4vh 4vh 4vh;
+  row-gap: 20px;
   min-height: 100vh;
 }
 

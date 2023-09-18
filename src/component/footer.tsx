@@ -29,7 +29,10 @@ export default function Footer() {
           display: "flex",
           mb: 2,
         }}
-      >
+      > 
+      {/* <Box  sx={{
+        height: '40px'
+      }} component="img" alt='logo' src={"logo.jpeg"}/> */}
         <Typography variant="caption" color="initial">
           Copyright ©2023. C2CA Technologies
         </Typography>

@@ -95,8 +95,7 @@ export default async function specificOverview({
             flexGrow: 2,
           }}
         >
-          Hello. you are viewing {entityInfo["name"]} and you are on the RFID
-          overview page
+          You are on the RFID overview page
           <BasicTable props={entityInfo} editable={isAdmin} />
           <Box
             sx={{
@@ -139,7 +138,7 @@ export default async function specificOverview({
                 cardText={materialPagetype.RawMaterial as string}
                 link={`/rawmaterial/${entityInfo.materialId}`}
               />
-              </Box>
+            </Box>
             <Box
               sx={{
                 display: "flex",

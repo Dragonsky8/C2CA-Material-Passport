@@ -42,7 +42,7 @@ export default async function Home() {
           sx={{
             display: "flex",
             flexDirection: "row",
-            height: "200px",
+            height: "150px",
           }}
         >
           {/* <Box  sx={{
@@ -50,7 +50,39 @@ export default async function Home() {
           }} component="img" alt='logo' src={"logo.jpeg"}/> */}
           <Typography variant="h4">
             {" "}
-            Welcome to C2CA product passport
+            Welcome to C2CA passport database.
+          </Typography>
+        </Box>
+      </CardBody>
+      <CardBody>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
+          <Typography variant="h4"> Material Passport</Typography>
+
+          <Typography variant="h6">
+            A material passport is a document that serves as a comprehensive
+            record of essential information about a specific batch or type of
+            concrete. Similar to a passport for a person, it provides vital
+            details and history that facilitate transparency, quality control,
+            and traceability throughout the product's lifecycle
+          </Typography>
+        </Box>
+      </CardBody>
+      <CardBody>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
+          <Typography variant="h4"> Product Passport</Typography>
+
+          <Typography variant="h6">
+            A product passport is a document that serves as a comprehensive
+            record of essential information about a specific batch or type of
+            concrete. Similar to a passport for a person, it provides vital
+            details and history that facilitate transparency, quality control,
+            and traceability throughout the product's lifecycle
           </Typography>
         </Box>
       </CardBody>

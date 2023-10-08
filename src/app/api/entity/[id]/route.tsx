@@ -9,7 +9,7 @@ export async function GET(
 ) {
   const identifier = params.id; // 'a', 'b', or 'c'
   const res = await prisma.materialProductLink.findFirst({
-    where: { rfidId: parseInt(identifier) },
+    where: { epcId: identifier },
   });
   // const res2 = await prisma.materialVersion.findMany({
   //   where: {versionMaterialId: parseInt(identifier)}
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     // })
 
     // Return redicrect url if everything succeeded
-    return NextResponse.redirect(new URL(`/overview/${res.id}`, request.url));
+    return NextResponse.redirect(new URL(`/rawmaterial/${res.id}`, request.url));
   } catch (e: any) {
     // It failed to update
     console.log("update failed", e);
@@ -93,13 +93,14 @@ export async function PATCH(
 ) {
   const req = await request.json();
   const data = req.data;
+  console.log("HIIIWE" + data.rfidId)
   const userId = req.userId;
   const dbId = parseInt(data.id);
   // Try to add new entity. Catch the error when it fails
   try {
     // const user = await prisma.users.findFirst(userId)
     const userPrisma = prisma.$extends(forUser(userId))
-    const res = await userPrisma.material.update({
+    const res = await userPrisma.materialProductLink.update({
       where: { id: dbId },
       data: data,
     });

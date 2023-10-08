@@ -32,12 +32,13 @@ model Material {
 // Use this to link unique RFID tag to corresponding material
 // This model links the many-to-many relationship
 model MaterialProductLink {
-  rfidId Int @id @unique @default(autoincrement())
+  id Int @id @unique @default(autoincrement())
 
   material   Material @relation(fields: [materialId], references: [id])
   product    Product  @relation(fields: [productId], references: [id])
   materialId Int
   productId  Int
+  epcId      String
 
   @@schema("public")
 }

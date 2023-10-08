@@ -49,6 +49,7 @@ export async function POST(request: Request) {
              // @ts-ignore 
             materialId: parseInt(linkValue),
             productId: parseInt(data.id),
+            epcId: "data.epc"
           },
         });
       })

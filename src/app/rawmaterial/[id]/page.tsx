@@ -97,7 +97,7 @@ export default async function specificOverview({
           }}
         >
           Hello. you are viewing {entityInfo["name"]}
-          <BasicTable props={entityInfo} editable={isAdmin} />
+          <BasicTable props={entityInfo} editable={isAdmin} subSection="material"/>
           <Box
             sx={{
               display: "flex",

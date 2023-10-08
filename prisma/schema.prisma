@@ -58,7 +58,7 @@ model Product {
 }
 
 model RawMaterial {
-  id                           Int     @id @unique
+  id                           Int     @id @unique @default(autoincrement())
   particleSize                 String?
   grading                      String?
   tolerance                    String?

@@ -67,6 +67,7 @@ export async function POST(request: Request) {
   }
 }
 
+// MaterialProductLink is not supposed to be edited by anyone
 export async function PATCH(
   request: Request,
   {
@@ -82,15 +83,14 @@ export async function PATCH(
 ) {
   const req = await request.json();
   const data = req.data;
-  console.log("HIIIWE" + data.rfidId);
   const userId = req.userId;
-  const dbId = parseInt(data.id);
+  const dbId = data.id;
   // Try to add new entity. Catch the error when it fails
   try {
     // const user = await prisma.users.findFirst(userId)
     const userPrisma = prisma.$extends(forUser(userId));
     const res = await userPrisma.materialProductLink.update({
-      where: { id: dbId },
+      where: { epcId: dbId },
       data: data,
     });
     return new NextResponse(JSON.stringify("good"), {

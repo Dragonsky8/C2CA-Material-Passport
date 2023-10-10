@@ -14,12 +14,11 @@ Table Material {
 }
 
 Table MaterialProductLink {
-  id Int [pk, increment]
   material Material [not null]
   product Product
   materialId Int [not null]
   productId Int
-  epcId String [not null]
+  epcId String [pk]
 }
 
 Table Product {

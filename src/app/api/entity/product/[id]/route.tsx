@@ -58,12 +58,13 @@ export async function POST(request: Request) {
 
     // Once done with subPages, create MaterialProductLink entry to link raw material + product
     Object.values(linkData).map( async (linkValue) => {
-    await userPrisma.materialProductLink.create({
-        data: {
-           // @ts-ignore 
-          materialId: parseInt(linkValue),
+    await userPrisma.materialProductLink.update({
+      where: {
+        // @ts-ignore
+        epcId: linkValue
+      },  
+      data: {
           productId: res.id,
-          epcId: "temp"
         },
       });
     })

@@ -36,6 +36,8 @@ export default function AddPage() {
   const userId = session?.user.id;
   // Object of FieldTypes
   const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
+  const [rfidInfo, setRfidInfo] = useState<{ [x: string]: string }>();
+  
   // Store the input fields in the inputValues state
   const handleInputChange = (e: any) => {
     const fieldInfo: FieldType = {
@@ -47,21 +49,23 @@ export default function AddPage() {
       [fieldInfo.name]: fieldInfo.value,
     }));
   };
-  // Material selection handler
-//   const handleMaterialChange = (e: any) => {
-//     const fieldInfo: FieldType = {
-//       name: "materialType",
-//       value: e.target.value,
-//     };
-//     setInputValues((prevState) => ({
-//       ...prevState,
-//       [fieldInfo.name]: fieldInfo.value,
-//     }));
-//   };
+  // Store the name seperately
+  const handleIdInput = (e: any) => {
+    const fieldInfo: FieldType = {
+      name: e.currentTarget.id,
+      value: e.currentTarget.value,
+    };
+    setRfidInfo((prevState) => ({
+      ...prevState,
+      [fieldInfo.name]: fieldInfo.value,
+    }));
+  }
 
   const handleChange = async (event: React.MouseEvent) => {
     // window.location.href = `/api/entity/${searchData}`;
-    const bodyPatch = { userId: session?.user.id, data: inputValues };
+    // const bodyPatch = { userId: session?.user.id, data: inputValues };
+    const bodyPatch = { userId: session?.user.id, data: inputValues, rfidInfo: rfidInfo };
+
 
     const res = await fetch(`/api/entity/${2}`, {
       method: "POST",
@@ -90,22 +94,22 @@ export default function AddPage() {
     }
     window.location.href = res.url;
   };
-  const handleLinkChange = async (event: React.MouseEvent) => {
-    // window.location.href = `/api/entity/${searchData}`;
-    const bodyPatch = { userId: 1, data: inputValues };
+  // const handleLinkChange = async (event: React.MouseEvent) => {
+  //   // window.location.href = `/api/entity/${searchData}`;
+  //   const bodyPatch = { userId: 1, data: inputValues };
 
-    const res = await fetch(`/api/entity/addlink/${2}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bodyPatch),
-    });
-    if (!res.ok) {
-      throw new Error("hellluup");
-    }
-    window.location.href = res.url;
-  };
+  //   const res = await fetch(`/api/entity/addlink/${2}`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(bodyPatch),
+  //   });
+  //   if (!res.ok) {
+  //     throw new Error("hellluup");
+  //   }
+  //   window.location.href = res.url;
+  // };
   return (
     <CardBody>
       <>
@@ -128,6 +132,12 @@ export default function AddPage() {
             label="Producer"
             variant="filled"
             onChange={handleInputChange}
+          />
+          <TextField
+            id="rfidTag1"
+            label="RFIDTag1"
+            variant="filled"
+            onChange={handleIdInput}
           />
           {/* <FormControl fullWidth>
             <InputLabel id="test">MaterialType</InputLabel>

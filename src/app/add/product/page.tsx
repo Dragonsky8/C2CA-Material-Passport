@@ -78,22 +78,22 @@ export default function AddPage() {
     }
     window.location.href = res.url;
   };
-  const handleLinkChange = async (event: React.MouseEvent) => {
-    // window.location.href = `/api/entity/${searchData}`;
-    const bodyPatch = { userId: 1, data: inputValues };
+  // const handleLinkChange = async (event: React.MouseEvent) => {
+  //   // window.location.href = `/api/entity/${searchData}`;
+  //   const bodyPatch = { userId: 1, data: inputValues };
 
-    const res = await fetch(`/api/entity/addlink/${2}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bodyPatch),
-    });
-    if (!res.ok) {
-      throw new Error("hellluup");
-    }
-    window.location.href = res.url;
-  };
+  //   const res = await fetch(`/api/entity/addlink/${2}`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(bodyPatch),
+  //   });
+  //   if (!res.ok) {
+  //     throw new Error("hellluup");
+  //   }
+  //   window.location.href = res.url;
+  // };
 
   return (
     <CardBody>

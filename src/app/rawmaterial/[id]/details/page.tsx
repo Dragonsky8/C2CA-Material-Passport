@@ -27,7 +27,7 @@ async function getEntity(id: string) {
   return res.json();
 }
 async function getRawMaterialType(id: string) {
-  const res = await fetch(process.env.URL + `/api/entity/${id}`, {
+  const res = await fetch(process.env.URL + `/api/entity/rawmaterial/${id}`, {
     cache: "no-store",
   });
   if (!res.ok) {
@@ -65,8 +65,9 @@ export default async function specificOverview({
   const entityHistory = await getEntityHistory(params.id);
 
   const overviewInfo: ResObj = await getRawMaterialType(params.id);
+  console.log(overviewInfo);
+
   const rawMaterial = overviewInfo.materialType;
-  console.log(rawMaterial);
   var filteredRawMaterial;
   if (rawMaterial === ("Fine Aggregates" || "Coarse Aggregates")) {
     let temp: AggregatesProps = {
@@ -128,7 +129,7 @@ export default async function specificOverview({
             gap: "10px",
           }}
         >
-          <Button href={`/overview/${params.id}`}> Back to Overview</Button>
+          {/* <Button href={`/overview/${params.id}`}> Back to Overview</Button> */}
           <SearchBox />
         </Box>
         <Box

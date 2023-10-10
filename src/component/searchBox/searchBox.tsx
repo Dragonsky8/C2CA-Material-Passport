@@ -28,7 +28,7 @@ export default function SearchBox() {
         flexDirection: 'column',
         gap: '10px'
     }}>
-      <TextField type="number" id="outlined-basic" label="RFID code" variant="outlined" onKeyDown={handleChange} onChange={e=> {setSearchData(e.currentTarget.value)}}/>
+      <TextField type="text" id="outlined-basic" label="RFID code" variant="outlined" onKeyDown={handleChange} onChange={e=> {setSearchData(e.currentTarget.value)}}/>
       <Button variant="contained" onClick={handleClick}> Search!</Button>
     </Box>
   );

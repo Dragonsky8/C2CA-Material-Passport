@@ -22,11 +22,10 @@ export async function POST(request: Request) {
   const data = req.data
   const userId = req.userId;
   const linkData: {} = req.link  
-  console.log(userId)
+  console.log(req)
 
   // Add production date
 //   data.dateOfProduction = new Date();
-  console.log(req)
   // Try to add new entity. Catch the error when it fails
   try {
     const userPrisma = prisma.$extends(forUser(userId))
@@ -64,6 +63,7 @@ export async function POST(request: Request) {
            // @ts-ignore 
           materialId: parseInt(linkValue),
           productId: res.id,
+          epcId: "temp"
         },
       });
     })

@@ -1,0 +1,153 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Material {
+  id Int [pk, increment]
+  dateOfProduction DateTime [not null]
+  name String [not null]
+  producer String [not null]
+  materialType String [not null]
+  MaterialVersion MaterialVersion [not null]
+  rawMaterial RawMaterial
+  productLink MaterialProductLink [not null]
+}
+
+Table MaterialProductLink {
+  id Int [pk, increment]
+  material Material [not null]
+  product Product
+  materialId Int [not null]
+  productId Int
+  epcId String [not null]
+}
+
+Table Product {
+  id Int [pk, increment]
+  name String [not null]
+  production Production [not null]
+  recyclingData Recycle
+  buildData Build [not null]
+  useData Use [not null]
+  rawMaterialLink MaterialProductLink [not null]
+}
+
+Table RawMaterial {
+  id Int [pk, increment]
+  particleSize String
+  grading String
+  tolerance String
+  granularShape String
+  grainShape String
+  shellContent String
+  grainDensity String
+  amountFineParts String
+  qualityFineParts String
+  roundAndBrokenPieces String
+  resistanceToCrushing String
+  waterAbsorption String
+  classification String
+  chloride String
+  contentOfAcidSolubleSulfate String
+  contentOfWaterSolubleSulfate String
+  totalSulfur String
+  affectBindingTime String
+  humusOrOrganicMatterContent String
+  AlkaliSilicaActivity String
+  resistanceToWear String
+  emissionOfRadioactivity String
+  leachingOfHeavyMetals String
+  Asbestos String
+  ChimicalComposition String
+  leachingAnions String
+  freezeThawSensitivity String
+  fallThrough2mm String
+  fallThrough0125mm String
+  fallThrough0063mm String
+  vormVastheid String
+  emissionOfHazardousSubstances String
+  materialParent Material
+}
+
+Table Production {
+  id Int [pk]
+  name String
+  weight String
+  volume String
+  density String
+  area String
+  compressionStrength String
+  loadBearing String
+  stability String
+  resistance String
+  productParent Product
+}
+
+Table Build {
+  id Int [pk]
+  name String
+  constructor String
+  productParent Product
+}
+
+Table Use {
+  id Int [pk]
+  name String
+  location String
+  buildingDate DateTime
+  productParent Product
+}
+
+Table Recycle {
+  id Int [pk]
+  name String
+  recyclingCompany String
+  productParent Product
+}
+
+Table Users {
+  id Int [pk, increment]
+  userName String [not null]
+  role String [not null]
+  password String [not null]
+  MaterialVersion MaterialVersion [not null]
+}
+
+Table MaterialVersion {
+  versionId Int [pk, increment]
+  versionOperation AuditOperation [not null]
+  versionMaterialId Int
+  versionUserId Int
+  versionTimestamp DateTime [not null]
+  id Int [not null]
+  dateOfProduction DateTime [not null]
+  name String [not null]
+  producer String [not null]
+  materialType String [not null]
+  material Material
+  user Users
+}
+
+Enum AuditOperation {
+  INSERT
+  UPDATE
+  DELETE
+}
+
+Ref: MaterialProductLink.materialId > Material.id
+
+Ref: MaterialProductLink.productId > Product.id
+
+Ref: RawMaterial.id - Material.id
+
+Ref: Production.id > Product.id
+
+Ref: Build.id > Product.id
+
+Ref: Use.id > Product.id
+
+Ref: Recycle.id - Product.id
+
+Ref: MaterialVersion.versionMaterialId > Material.id
+
+Ref: MaterialVersion.versionUserId > Users.id

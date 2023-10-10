@@ -11,10 +11,6 @@ export async function GET(
   const res = await prisma.materialProductLink.findFirst({
     where: { epcId: identifier },
   });
-  // const res2 = await prisma.materialVersion.findMany({
-  //   where: {versionMaterialId: parseInt(identifier)}
-  // })
-  // console.log(res)
   return NextResponse.json(res);
   // return NextResponse.json(JSON.stringify({ test: `${identifier}` }));
 }
@@ -23,51 +19,44 @@ export async function GET(
 export async function POST(request: Request) {
   const req = await request.json();
   const data = req.data;
-  const userId = req.userId;  
-  console.log(userId)
+  const rfidInfo = req.rfidInfo;
+  const userId = req.userId;
+  console.log(rfidInfo);
 
   // Add production date
   data.dateOfProduction = new Date();
   // Add materialType to Raw, as registering a new RFID is always Raw
-  data.materialType = "Raw"
-  console.log(data)
+  data.materialType = "Raw";
+  console.log(data);
   // Try to add new entity. Catch the error when it fails
   try {
-    // const user = await prisma.users.findFirstOrThrow()
-    const userPrisma = prisma.$extends(forUser(userId))
+    const userPrisma = prisma.$extends(forUser(userId));
     const res = await userPrisma.material.create({
       data: data,
     });
-    console.log("res is giving id: ", res.id)
+    console.log("res is giving id: ", res.id);
     // create additional entries in other categories
     await userPrisma.rawMaterial.create({
       data: {
         id: res.id,
-      }
-    })
-    // await userPrisma.production.create({
-    //   data: {
-    //     id: res.id
-    //   }
-    // })
-    // await userPrisma.build.create({
-    //   data: {
-    //     id: res.id
-    //   }
-    // })
-    // await userPrisma.use.create({
-    //   data: {
-    //     id: res.id
-    //   }
-    // })
-    // await userPrisma.recycle.create({
-    //   data: {
-    //     id: res.id
-    //   }
-    // })
+      },
+    });
+    // Register every RFID scanned with the new rawMaterial entry
+    // Once done with subPages, create MaterialProductLink entry to link raw material + product
+    Object.values(rfidInfo).map(async (linkValue) => {
+      await userPrisma.materialProductLink.create({
+        data: {
+          materialId: res.id,
+          // @ts-ignore
+          epcId: linkValue, /// TODO: Fix this TS warning
+        }, 
+      });
+    });
 
     // Return redicrect url if everything succeeded
-    return NextResponse.redirect(new URL(`/rawmaterial/${res.id}`, request.url));
+    return NextResponse.redirect(
+      new URL(`/rawmaterial/${res.id}`, request.url)
+    );
   } catch (e: any) {
     // It failed to update
     console.log("update failed", e);
@@ -93,13 +82,13 @@ export async function PATCH(
 ) {
   const req = await request.json();
   const data = req.data;
-  console.log("HIIIWE" + data.rfidId)
+  console.log("HIIIWE" + data.rfidId);
   const userId = req.userId;
   const dbId = parseInt(data.id);
   // Try to add new entity. Catch the error when it fails
   try {
     // const user = await prisma.users.findFirst(userId)
-    const userPrisma = prisma.$extends(forUser(userId))
+    const userPrisma = prisma.$extends(forUser(userId));
     const res = await userPrisma.materialProductLink.update({
       where: { id: dbId },
       data: data,

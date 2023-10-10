@@ -27,46 +27,46 @@ export async function GET(
   // return NextResponse.json(JSON.stringify({ test: `${identifier}` }));
 }
 
-export async function POST(
-  request: Request,
-  {
-    body,
-  }: {
-    body: {
-      id: number;
-      name: String;
-      producer: String;
-      mixture: String;
-    };
-  }
-) {
-  const req = await request.json();
-  const data = req.data;
-  const userId = req.userId;
-//   const dbId = parseInt(data.id);
-  // data should be in format:
-  // {materialId: [a, b, c], productId: x}?
-  console.log(data);
-  // Try to add new link between materialId and productId. Catch the error when it fails
-  try {
-    // const user = await prisma.users.findFirstOrThrow()
-    const userPrisma = prisma.$extends(forUser(userId));
-    const res = await userPrisma.materialProductLink.create({
-      data: {
-        materialId: 1,
-        productId: 1,
-      },
-    });
-    return new NextResponse(JSON.stringify("good"), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (e: any) {
-    // It failed to update
-    console.log("update failed", e);
-    return new NextResponse(JSON.stringify("hgelp"), {
-      status: 406,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-}
+// export async function POST(
+//   request: Request,
+//   {
+//     body,
+//   }: {
+//     body: {
+//       id: number;
+//       name: String;
+//       producer: String;
+//       mixture: String;
+//     };
+//   }
+// ) {
+//   const req = await request.json();
+//   const data = req.data;
+//   const userId = req.userId;
+// //   const dbId = parseInt(data.id);
+//   // data should be in format:
+//   // {materialId: [a, b, c], productId: x}?
+//   console.log(data);
+//   // Try to add new link between materialId and productId. Catch the error when it fails
+//   try {
+//     // const user = await prisma.users.findFirstOrThrow()
+//     const userPrisma = prisma.$extends(forUser(userId));
+//     const res = await userPrisma.materialProductLink.create({
+//       data: {
+//         materialId: 1,
+//         productId: 1,
+//       },
+//     });
+//     return new NextResponse(JSON.stringify("good"), {
+//       status: 200,
+//       headers: { "Content-Type": "application/json" },
+//     });
+//   } catch (e: any) {
+//     // It failed to update
+//     console.log("update failed", e);
+//     return new NextResponse(JSON.stringify("hgelp"), {
+//       status: 406,
+//       headers: { "Content-Type": "application/json" },
+//     });
+//   }
+// }

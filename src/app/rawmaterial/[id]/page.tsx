@@ -42,6 +42,15 @@ async function getEntity(id: string) {
   }
   return res.json();
 }
+async function checkIfProductListExists(id: string) {
+  const res = await fetch(process.env.URL + `/api/entity/allproducts/${id}`, {
+    cache: "no-store",
+  });
+  if (res.ok) {
+    return true
+  }
+  return false;
+}
 async function getEntityHistory(id: string) {
   const res = await fetch(process.env.URL + `/api/entity/history/${id}`, {
     cache: "no-store",
@@ -70,9 +79,10 @@ export default async function specificOverview({
   const entityHistory = await getEntityHistory(params.id);
 
   // Set the variable to display only raw materials or all sub-pages
-  let materialPagetype = pageText;
-  if (entityInfo.materialType === "Raw") {
-    materialPagetype = pageTextRaw;
+  let materialPagetype = pageTextRaw;
+  const check = await checkIfProductListExists(params.id)
+  if (check) {
+    materialPagetype = pageText;
   }
 
   return (

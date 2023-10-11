@@ -8,10 +8,10 @@ import { authOptions } from "../utils/authOptions";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
-  const role = session?.user?.role;
+  const role = session?.user.role;
 
   const renderLinkButtons = () => {
-    if (role === "producer") {
+    if (role === ("productproducer")) {
       return (
         <>
           <Button variant="contained" href="/overview">
@@ -19,6 +19,18 @@ export default async function Home() {
           </Button>
           <Button variant="contained" href="/add/product">
             Register product passport
+          </Button>
+        </>
+      );
+    }
+    if (role === ("rawproducer")) {
+      return (
+        <>
+          <Button variant="contained" href="/overview">
+            Search raw material passport
+          </Button>
+          <Button variant="contained" href="/add/raw">
+            Register raw material passport
           </Button>
         </>
       );

@@ -23,7 +23,7 @@ export default async function RootLayout({
 }) {
   // Verify the session role, before giving access
   const session = await getServerSession(authOptions);
-  if (!(session?.user.role === "admin")) {
+  if (!(session?.user.role === "admin" || session?.user.role === "rawproducer" || session?.user.role === "productproducer")) {
     redirect("/unauthorized");
   }
   if (!(session)) {

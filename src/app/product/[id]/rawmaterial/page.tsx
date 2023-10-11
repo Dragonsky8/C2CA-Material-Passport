@@ -48,7 +48,7 @@ export default async function rawMaterialList({
   // Get current search ID from params
   const session = await getServerSession(authOptions);
   let isAdmin = false;
-  if (session?.user?.role === "admin") {
+  if (session?.user.role === ("admin") || session?.user.role === ("productproducer")) {
     isAdmin = true;
   }
   const entityInfo: [ResObj & testProp] = await getEntity(params.id);

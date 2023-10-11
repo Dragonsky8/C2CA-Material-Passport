@@ -36,7 +36,7 @@ export default function SignInSide() {
       password: data.get('password'),
     });
 
-    window.location.href = `/overview`;
+    window.location.href = `/home`;
   };
 
   return (

@@ -48,7 +48,7 @@ export default async function productList({
   // Get current search ID from params
   const session = await getServerSession(authOptions);
   let isAdmin = false;
-  if (session?.user?.role === "admin") {
+  if (session?.user.role === ("admin") || session?.user.role === ("rawproducer")) {
     isAdmin = true;
   }
   const entityInfo: [ResObj & testProp] = await getEntity(params.id);

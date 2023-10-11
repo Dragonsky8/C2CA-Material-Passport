@@ -31,3 +31,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 - Handle when a registered RFID chip gets linked to two products.
 - Handle when registering new RawMaterials uses already-existing RFID chips
 - Improve the data fields.
+- Add audit trails as a nice markup
+- Add audit table for other data tables

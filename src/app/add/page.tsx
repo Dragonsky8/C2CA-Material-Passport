@@ -35,6 +35,7 @@ export default function AddPage() {
   // Get the current user cookie data
   const { data: session, status } = useSession();
   const userId = session?.user.id;
+  const userRole = session?.user.role;
   // Object of FieldTypes
   const [inputValues, setInputValues] = useState<{ [x: string]: string }>();
   // Store the input fields in the inputValues state
@@ -95,6 +96,42 @@ export default function AddPage() {
     }
     window.location.href = res.url;
   };
+  // Render the add boxes, based on role
+  const renderAddPage = () => {
+    if (session?.user.role === "rawproducer") {
+      return(
+        <MediaCard
+          title="Register Raw Material"
+          cardText="Register a new raw material product, such as sands, aggregates or cement"
+          link="/add/raw"
+        />
+      )
+    } else if (session?.user.role === "productproducer") {
+      return (
+        <MediaCard
+          title="Register Product"
+          cardText="Register a new production product, by scanning the raw material's RFID tags"
+          link="/add/product"
+        />
+      )
+    }
+    else if (session?.user.role === "admin") {
+      return (
+        <>
+          <MediaCard
+            title="Register Raw Material"
+            cardText="Register a new raw material product, such as sands, aggregates or cement"
+            link="/add/raw"
+          />
+          <MediaCard
+            title="Register Product"
+            cardText="Register a new production product, by scanning the raw material's RFID tags"
+            link="/add/product"
+          />
+        </>
+      );
+    }
+  };
   const handleLinkChange = async (event: React.MouseEvent) => {
     // window.location.href = `/api/entity/${searchData}`;
     const bodyPatch = { userId: 1, data: inputValues };
@@ -123,22 +160,14 @@ export default function AddPage() {
         <Typography variant="h5">
           Registering a new batch of raw materials, or a new production product
         </Typography>
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: "15px",
-
-        }}>
-          <MediaCard
-            title="Register Raw Material"
-            cardText="Register a new raw material product, such as sands, aggregates or cement"
-            link="/add/raw"
-          />
-          <MediaCard
-            title="Register Product"
-            cardText="Register a new production product, by scanning the raw material's RFID tags"
-            link="/add/product"
-          />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "15px",
+          }}
+        >
+          {renderAddPage()}
         </Box>
 
         <Box>

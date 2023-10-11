@@ -17,11 +17,18 @@ async function main() {
         }
     })
 
-    const producer = await prisma.users.create( {
+    const rawproducer = await prisma.users.create( {
         data: {
-            userName: "producer",
-            role: 'producer',
-            password: 'producerc2ca'
+            userName: "rawproducer",
+            role: 'rawproducer',
+            password: 'rawproducerc2ca'
+        }
+    })
+    const productproducer = await prisma.users.create( {
+        data: {
+            userName: "productproducer",
+            role: 'productproducer',
+            password: 'productproducerc2ca'
         }
     })
 }

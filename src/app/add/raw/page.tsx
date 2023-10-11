@@ -134,8 +134,20 @@ export default function AddPage() {
             onChange={handleInputChange}
           />
           <TextField
-            id="rfidTag1"
-            label="RFIDTag1"
+            id="rfidTag2"
+            label="RFIDTag2"
+            variant="filled"
+            onChange={handleIdInput}
+          />
+          <TextField
+            id="rfidTag3"
+            label="RFIDTag3"
+            variant="filled"
+            onChange={handleIdInput}
+          />
+          <TextField
+            id="rfidTag4"
+            label="RFIDTag4"
             variant="filled"
             onChange={handleIdInput}
           />

@@ -106,7 +106,6 @@ export default async function specificOverview({
             flexGrow: 2,
           }}
         >
-          Hello. you are viewing {entityInfo["name"]}
           <BasicTable props={entityInfo} editable={isAdmin} subSection="material"/>
           <Box
             sx={{

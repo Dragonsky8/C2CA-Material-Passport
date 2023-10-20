@@ -21,7 +21,7 @@ For Windows machine, there are additional steps required.
 With your VS Code installed, you can now start importing this repository project onto your local machine.
 
 1. Open VS Code and follow the steps, if you get a "first time use" popup.
-2. At the left column, you see a toolbar. The 3rd icon says "Source control" when you hover above it. Click on this one.
+2. At the left column, you see a toolbar. The 3rd icon says "Source control" when you hover above it. Click on this one. It could be that you need to install Git. Follow the link when you see that message.
 3. On the left, you can select "Clone Repository".
 4. Provide the Github URL of this project.
 5. Select a folder in your file system to store this project. Common place to store this is in the /Documents folder
